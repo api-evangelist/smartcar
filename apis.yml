@@ -1,0 +1,52 @@
+aid: smartcar
+name: Smartcar
+description: >-
+  Smartcar is a connected vehicle platform that provides a standardized REST
+  API for accessing vehicle data and sending commands to connected cars. The
+  API enables developers to retrieve battery levels, odometer readings,
+  location, lock/unlock doors, start/stop charging and access vehicle
+  attributes across multiple vehicle brands through a single integration.
+type: Index
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+tags:
+  - Connected Vehicles
+  - Automotive
+  - IoT
+  - Mobility
+url: >-
+  https://raw.githubusercontent.com/api-evangelist/smartcar/refs/heads/main/apis.yml
+created: '2026-03-16'
+modified: '2026-03-16'
+specificationVersion: '0.19'
+apis:
+  - aid: smartcar:vehicles-api
+    name: Smartcar Vehicles API
+    description: >-
+      The Smartcar Vehicles API lets you access standardized vehicle data and
+      send commands to connected vehicles. Retrieve signals such as battery
+      level, odometer, location, and more, as well as issue commands like
+      lock/unlock or start/stop charging across multiple vehicle brands.
+    humanURL: https://smartcar.com/docs/api/
+    tags:
+      - Vehicles
+      - Connected Cars
+      - Telematics
+    properties:
+      - type: Documentation
+        url: https://smartcar.com/docs/api/
+      - type: Reference
+        url: https://smartcar.com/docs/api-reference/intro
+      - type: Authentication
+        url: https://smartcar.com/docs/api-reference/intro
+common:
+  - type: Portal
+    url: https://smartcar.com/
+  - type: Documentation
+    url: https://smartcar.com/docs/api/
+  - type: Website
+    url: https://smartcar.com/
+  - type: GitHub Organization
+    url: https://github.com/smartcar
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
