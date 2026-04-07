@@ -9,8 +9,8 @@ description: >-
 type: Index
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 tags:
-  - Connected Vehicles
   - Automotive
+  - Connected Vehicles
   - IoT
   - Mobility
 url: >-
@@ -28,9 +28,9 @@ apis:
       lock/unlock or start/stop charging across multiple vehicle brands.
     humanURL: https://smartcar.com/docs/api/
     tags:
-      - Vehicles
       - Connected Cars
       - Telematics
+      - Vehicles
     properties:
       - type: Documentation
         url: https://smartcar.com/docs/api/
