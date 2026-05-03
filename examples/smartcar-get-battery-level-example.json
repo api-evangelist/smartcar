@@ -1,0 +1,22 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://vehicle.api.smartcar.com/v2.0/vehicles/36ab27d0-fd9d-4455-823a-ce30af709ffc/battery",
+    "headers": {
+      "Authorization": "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9...",
+      "sc-unit-system": "metric"
+    }
+  },
+  "response": {
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "application/json",
+      "sc-data-age": "2026-05-02T14:23:00Z",
+      "sc-request-id": "bcd234-efg567"
+    },
+    "body": {
+      "percentRemaining": 0.82,
+      "range": 312.4
+    }
+  }
+}

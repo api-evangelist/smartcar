@@ -1,0 +1,98 @@
+{
+  "title": "Smartcar Vehicles API Structure",
+  "description": "Hierarchical structure of the Smartcar Vehicles API resources and data relationships",
+  "structure": {
+    "user": {
+      "description": "An end-user who has authorized vehicle access via OAuth",
+      "type": "entity",
+      "children": {
+        "connections": {
+          "description": "Vehicle connections authorized by this user",
+          "type": "collection",
+          "children": {
+            "connection": {
+              "description": "A single authorized vehicle connection",
+              "type": "entity",
+              "properties": ["id", "vehicleId", "userId", "status", "created"]
+            }
+          }
+        },
+        "vehicles": {
+          "description": "Connected vehicles accessible via Smartcar",
+          "type": "collection",
+          "children": {
+            "vehicle": {
+              "description": "A single connected vehicle with its telemetry and command surfaces",
+              "type": "entity",
+              "properties": ["id", "make", "model", "year", "vin"],
+              "children": {
+                "battery": {
+                  "description": "EV battery status",
+                  "type": "signal",
+                  "properties": ["percentRemaining", "range"],
+                  "permission": "read_battery"
+                },
+                "charge": {
+                  "description": "EV charging status and control",
+                  "type": "signal",
+                  "properties": ["isPluggedIn", "state"],
+                  "permission": "read_charge",
+                  "commands": ["START", "STOP"]
+                },
+                "charge_limit": {
+                  "description": "EV charge limit setting",
+                  "type": "setting",
+                  "properties": ["limit"],
+                  "permission": "control_charge"
+                },
+                "security": {
+                  "description": "Vehicle lock/unlock status and control",
+                  "type": "signal",
+                  "properties": ["isLocked", "doors", "windows"],
+                  "permission": "read_security",
+                  "commands": ["LOCK", "UNLOCK"]
+                },
+                "location": {
+                  "description": "GPS coordinates",
+                  "type": "signal",
+                  "properties": ["latitude", "longitude"],
+                  "permission": "read_location"
+                },
+                "odometer": {
+                  "description": "Odometer reading",
+                  "type": "signal",
+                  "properties": ["distance"],
+                  "permission": "read_odometer"
+                },
+                "fuel": {
+                  "description": "Fuel tank status",
+                  "type": "signal",
+                  "properties": ["percentRemaining", "amountRemaining", "range"],
+                  "permission": "read_fuel"
+                },
+                "engine_oil": {
+                  "description": "Engine oil life",
+                  "type": "signal",
+                  "properties": ["lifeRemaining"],
+                  "permission": "read_engine_oil"
+                },
+                "diagnostics": {
+                  "description": "OBD-II diagnostic trouble codes",
+                  "type": "signal",
+                  "properties": ["activeCodes"],
+                  "permission": "read_diagnostics"
+                },
+                "navigation": {
+                  "description": "Navigation destination control",
+                  "type": "command",
+                  "inputs": ["latitude", "longitude", "address"],
+                  "permission": "control_navigation"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

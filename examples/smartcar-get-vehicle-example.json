@@ -1,0 +1,24 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://vehicle.api.smartcar.com/v2.0/vehicles/36ab27d0-fd9d-4455-823a-ce30af709ffc",
+    "headers": {
+      "Authorization": "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9...",
+      "sc-unit-system": "metric"
+    }
+  },
+  "response": {
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "application/json",
+      "sc-request-id": "abc123-def456"
+    },
+    "body": {
+      "id": "36ab27d0-fd9d-4455-823a-ce30af709ffc",
+      "make": "TESLA",
+      "model": "Model 3",
+      "year": 2023,
+      "vin": "5YJ3E1EA7NF123456"
+    }
+  }
+}

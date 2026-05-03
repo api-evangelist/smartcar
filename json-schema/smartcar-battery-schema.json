@@ -1,0 +1,21 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.github.io/smartcar/json-schema/smartcar-battery-schema.json",
+  "title": "Smartcar Battery",
+  "description": "Electric vehicle battery status including charge level and range estimate.",
+  "type": "object",
+  "properties": {
+    "percentRemaining": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1,
+      "description": "Battery charge level as a decimal between 0.0 (empty) and 1.0 (full)"
+    },
+    "range": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Estimated remaining driving range in kilometers"
+    }
+  },
+  "required": ["percentRemaining", "range"]
+}

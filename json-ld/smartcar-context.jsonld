@@ -1,0 +1,73 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "smartcar": "https://api-evangelist.github.io/smartcar/vocab#",
+    "auto": "http://schema.org/auto/",
+
+    "name": "schema:name",
+    "description": "schema:description",
+    "url": {
+      "@id": "schema:url",
+      "@type": "@id"
+    },
+
+    "Vehicle": "schema:Vehicle",
+    "vehicleId": {
+      "@id": "smartcar:vehicleId",
+      "@type": "xsd:string"
+    },
+    "make": "schema:vehicleIdentificationNumber",
+    "manufacturer": "schema:manufacturer",
+    "model": "schema:model",
+    "modelDate": "schema:modelDate",
+    "vin": "schema:vehicleIdentificationNumber",
+
+    "batteryLevel": {
+      "@id": "smartcar:batteryLevel",
+      "@type": "xsd:decimal"
+    },
+    "range": {
+      "@id": "schema:fuelCapacity",
+      "@type": "schema:QuantitativeValue"
+    },
+    "isPluggedIn": {
+      "@id": "smartcar:isPluggedIn",
+      "@type": "xsd:boolean"
+    },
+    "chargingState": {
+      "@id": "smartcar:chargingState",
+      "@type": "xsd:string"
+    },
+
+    "isLocked": {
+      "@id": "smartcar:isLocked",
+      "@type": "xsd:boolean"
+    },
+    "location": "schema:GeoCoordinates",
+    "latitude": "schema:latitude",
+    "longitude": "schema:longitude",
+
+    "odometer": {
+      "@id": "smartcar:odometer",
+      "@type": "schema:QuantitativeValue"
+    },
+    "fuelLevel": {
+      "@id": "smartcar:fuelLevel",
+      "@type": "xsd:decimal"
+    },
+
+    "Connection": "schema:EntryPoint",
+    "Permission": "schema:DefinedTerm",
+
+    "percentRemaining": {
+      "@id": "smartcar:percentRemaining",
+      "@type": "xsd:decimal"
+    },
+    "distance": {
+      "@id": "schema:distance",
+      "@type": "schema:QuantitativeValue"
+    }
+  }
+}

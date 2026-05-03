@@ -1,0 +1,32 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.github.io/smartcar/json-schema/smartcar-vehicle-schema.json",
+  "title": "Smartcar Vehicle",
+  "description": "A connected vehicle registered with the Smartcar platform, including identity, brand, and capability attributes.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique Smartcar vehicle identifier"
+    },
+    "make": {
+      "type": "string",
+      "description": "Vehicle manufacturer (e.g., Tesla, Ford, BMW)"
+    },
+    "model": {
+      "type": "string",
+      "description": "Vehicle model name (e.g., Model 3, Mustang Mach-E)"
+    },
+    "year": {
+      "type": "integer",
+      "minimum": 2000,
+      "description": "Vehicle model year"
+    },
+    "vin": {
+      "type": "string",
+      "pattern": "^[A-HJ-NPR-Z0-9]{17}$",
+      "description": "17-character Vehicle Identification Number"
+    }
+  },
+  "required": ["id", "make", "model", "year"]
+}

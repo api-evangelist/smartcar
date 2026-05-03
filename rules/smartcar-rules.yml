@@ -1,0 +1,76 @@
+extends: spectral:oas
+rules:
+  # Smartcar API Naming Conventions
+  smartcar-operation-id-camel-case:
+    description: Operation IDs must use camelCase
+    message: "Operation ID '{{value}}' should use camelCase (e.g., getBatteryLevel)"
+    severity: warn
+    given: "$.paths[*][*].operationId"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[a-z][a-zA-Z0-9]+$"
+
+  smartcar-vehicle-id-path-param:
+    description: Vehicle endpoints must use {id} as path parameter
+    message: "Vehicle endpoints should use {id} for the vehicle identifier"
+    severity: warn
+    given: "$.paths[*]~"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^\\/vehicles(\\/\\{id\\}|$)"
+
+  smartcar-operation-summary-title-case:
+    description: Operation summaries must use Title Case
+    message: "Summary '{{value}}' should use Title Case"
+    severity: warn
+    given: "$.paths[*][*].summary"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[A-Z][A-Za-z]*(\\s[A-Z][A-Za-z]*)*$"
+
+  smartcar-permission-documented:
+    description: Vehicle data endpoints should document their required permission in the description
+    message: "Vehicle data endpoint should mention required permission in description"
+    severity: info
+    given: "$.paths['/vehicles/{id}/*'][get]"
+    then:
+      field: description
+      function: truthy
+
+  smartcar-response-200-get:
+    description: All GET operations must define a 200 response
+    message: "GET operations must define a 200 success response"
+    severity: error
+    given: "$.paths[*].get"
+    then:
+      field: responses.200
+      function: truthy
+
+  smartcar-bearer-auth-required:
+    description: All operations should use Bearer authentication
+    message: "Operations should use BearerAuth security scheme"
+    severity: warn
+    given: "$"
+    then:
+      field: security
+      function: truthy
+
+  smartcar-command-result-schema:
+    description: POST command endpoints should return a CommandResult or equivalent schema
+    message: "Command POST operations should reference a result schema"
+    severity: info
+    given: "$.paths[*].post.responses.200.content.application/json.schema"
+    then:
+      function: truthy
+
+  smartcar-error-409-vehicle-state:
+    description: Vehicle data endpoints should document 409 for vehicle state conflicts
+    message: "Vehicle telemetry endpoints should define 409 response for vehicle state conflicts"
+    severity: info
+    given: "$.paths['/vehicles/{id}/*'][get]"
+    then:
+      field: responses.409
+      function: truthy

@@ -1,0 +1,151 @@
+title: Smartcar Vocabulary
+description: >-
+  Core terminology and concepts for the Smartcar connected vehicle platform,
+  encompassing vehicle connectivity, telemetry signals, permissions, commands,
+  and multi-OEM integration patterns.
+created: '2026-05-02'
+modified: '2026-05-02'
+terms:
+  - term: Connection
+    definition: >-
+      An authorized link between a user's vehicle and a Smartcar-powered
+      application, established via OAuth 2.0. Each connection grants the
+      application specific permissions to read data from or send commands to
+      that vehicle.
+    related:
+      - OAuth
+      - Permission
+      - Vehicle
+
+  - term: Vehicle ID
+    definition: >-
+      A Smartcar-assigned unique identifier for a connected vehicle. Used in
+      all API calls to identify which vehicle to query or command. Distinct
+      from the VIN.
+    aliases:
+      - vehicleId
+    related:
+      - VIN
+      - Connection
+
+  - term: Permission
+    definition: >-
+      A discrete scope granted by a vehicle owner during OAuth authorization
+      that allows an application to access a specific type of vehicle data
+      (e.g., read_battery, read_location) or send a command (e.g.,
+      control_charge, control_security).
+    related:
+      - OAuth Scope
+      - Authorization
+
+  - term: Signal
+    definition: >-
+      A real-time telemetry data point read from a vehicle such as battery
+      level, odometer, location, fuel, or engine oil life. Each signal
+      requires a corresponding read permission.
+    aliases:
+      - Telemetry
+    related:
+      - Battery
+      - Odometer
+      - Location
+
+  - term: Batch Request
+    definition: >-
+      A single API call that bundles multiple data requests (e.g., battery +
+      location + odometer) into one HTTP request and returns all responses
+      together, reducing latency and API call overhead.
+    related:
+      - Signal
+      - Performance
+
+  - term: OEM
+    definition: >-
+      Original Equipment Manufacturer. In Smartcar context, an automotive
+      manufacturer (e.g., Tesla, Ford, BMW, Honda) whose connected vehicle
+      platform Smartcar integrates with. A single Smartcar integration
+      provides access to multiple OEM vehicles.
+    aliases:
+      - Automaker
+    related:
+      - Multi-OEM
+
+  - term: Charge State
+    definition: >-
+      The current EV charging progression, one of: CHARGING (actively
+      charging), FULLY_CHARGED (at target level), or NOT_CHARGING (plugged in
+      but not charging or unplugged).
+    related:
+      - Battery
+      - EV
+
+  - term: Charge Limit
+    definition: >-
+      The maximum battery charge level (as a decimal from 0.5 to 1.0) that
+      an EV will charge to. Set by the vehicle owner or via the Smartcar API
+      using the control_charge permission.
+    related:
+      - Charging
+      - EV
+
+  - term: DTC
+    definition: >-
+      Diagnostic Trouble Code. A standardized OBD-II code (e.g., P0300)
+      indicating a fault detected by the vehicle's onboard diagnostic system.
+      Smartcar surfaces active DTCs via the read_diagnostics permission.
+    aliases:
+      - Diagnostic Trouble Code
+      - OBD-II Code
+    related:
+      - Diagnostics
+      - Vehicle Health
+
+  - term: Access Token
+    definition: >-
+      A short-lived (2-hour) OAuth 2.0 bearer token used to authenticate
+      API calls to the Smartcar Vehicle API. Obtained via the Authorization
+      Code flow (user-authorized) or Client Credentials flow (server-to-server).
+    related:
+      - OAuth
+      - Authentication
+
+  - term: Refresh Token
+    definition: >-
+      A longer-lived token used to obtain a new access token without requiring
+      user re-authorization. Smartcar refresh tokens are invalidated 10 minutes
+      after use.
+    related:
+      - Access Token
+      - OAuth
+
+  - term: EV
+    definition: >-
+      Electric Vehicle. A vehicle powered entirely by electric motors with a
+      battery pack. Smartcar provides EV-specific signals (battery, charge
+      status, charge limit) and commands (start/stop charging, set charge limit).
+    aliases:
+      - Electric Vehicle
+      - BEV
+    related:
+      - Battery
+      - Charging
+
+  - term: ICE
+    definition: >-
+      Internal Combustion Engine. A vehicle powered by a gasoline or diesel
+      engine. Smartcar provides ICE-specific signals such as fuel tank level,
+      engine oil life, and odometer.
+    aliases:
+      - Gas Vehicle
+    related:
+      - Fuel
+      - Engine Oil
+
+  - term: Compatibility
+    definition: >-
+      Whether a specific vehicle make, model, and year supports connection
+      to Smartcar and which signals/commands are available. Check via the
+      Compatibility API before attempting to connect a vehicle.
+    related:
+      - OEM
+      - Signal

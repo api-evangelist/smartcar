@@ -1,0 +1,24 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://vehicle.api.smartcar.com/v2.0/vehicles/36ab27d0-fd9d-4455-823a-ce30af709ffc/security",
+    "headers": {
+      "Authorization": "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9...",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "action": "LOCK"
+    }
+  },
+  "response": {
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "application/json",
+      "sc-request-id": "cde345-fgh678"
+    },
+    "body": {
+      "status": "success",
+      "message": "Successfully sent request to vehicle"
+    }
+  }
+}
