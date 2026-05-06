@@ -1,407 +1,702 @@
-naftiko: "1.0.0-alpha1"
-
+naftiko: 1.0.0-alpha2
 info:
   label: Smartcar Connected Vehicle Management
-  description: >-
-    Unified workflow capability for managing connected vehicles through Smartcar's
-    platform. Enables fleet operators, mobility apps, and EV management solutions
-    to read vehicle telemetry, monitor charging status, control vehicle access,
-    and send navigation commands across multiple OEM brands through a single
-    integration.
+  description: Unified workflow capability for managing connected vehicles through Smartcar's platform. Enables fleet operators,
+    mobility apps, and EV management solutions to read vehicle telemetry, monitor charging status, control vehicle access,
+    and send navigation commands across multiple OEM brands through a single integration.
   tags:
-    - Smartcar
-    - Connected Vehicles
-    - Automotive
-    - Fleet Management
-    - EV Management
-    - Telematics
-    - IoT
-  created: "2026-05-02"
-  modified: "2026-05-02"
-
+  - Smartcar
+  - Connected Vehicles
+  - Automotive
+  - Fleet Management
+  - EV Management
+  - Telematics
+  - IoT
+  created: '2026-05-02'
+  modified: '2026-05-06'
 binds:
-  - namespace: env
-    keys:
-      SMARTCAR_ACCESS_TOKEN: SMARTCAR_ACCESS_TOKEN
-
+- namespace: env
+  keys:
+    SMARTCAR_ACCESS_TOKEN: SMARTCAR_ACCESS_TOKEN
 capability:
   consumes:
-    - import: smartcar
-      location: ./shared/smartcar-vehicles.yaml
-
+  - type: http
+    namespace: smartcar
+    baseUri: https://vehicle.api.smartcar.com/v2.0
+    description: Smartcar Vehicle API for connected vehicle data and commands
+    authentication:
+      type: bearer
+      token: '{{SMARTCAR_ACCESS_TOKEN}}'
+    resources:
+    - name: connections
+      path: /connections
+      description: Manage vehicle connections
+      operations:
+      - name: list-connections
+        method: GET
+        description: List all vehicle connections for the authorized user
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: get-connection
+        method: GET
+        description: Get a specific vehicle connection
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          required: true
+          description: Connection ID
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: remove-connection
+        method: DELETE
+        description: Remove a vehicle connection
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          required: true
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: vehicle
+      path: /vehicles/{id}
+      description: Access vehicle data and attributes
+      operations:
+      - name: get-vehicle
+        method: GET
+        description: Get vehicle attributes and metadata
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          required: true
+          description: Vehicle ID
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: get-signals
+        method: GET
+        description: Read all available telemetry signals for the vehicle
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          required: true
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: battery
+      path: /vehicles/{id}/battery
+      description: EV battery status
+      operations:
+      - name: get-battery-level
+        method: GET
+        description: Get battery charge level and estimated range
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          required: true
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: charge
+      path: /vehicles/{id}/charge
+      description: EV charging management
+      operations:
+      - name: get-charge-status
+        method: GET
+        description: Get current charging state and plug-in status
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          required: true
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: control-charge
+        method: POST
+        description: Start or stop vehicle charging
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          required: true
+        body:
+          type: json
+          data:
+            action: '{{tools.action}}'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: charge-limit
+      path: /vehicles/{id}/charge/limit
+      description: EV charge limit management
+      operations:
+      - name: get-charge-limit
+        method: GET
+        description: Get the current charge limit setting
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          required: true
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: set-charge-limit
+        method: POST
+        description: Set the maximum battery charge level
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          required: true
+        body:
+          type: json
+          data:
+            limit: '{{tools.limit}}'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: security
+      path: /vehicles/{id}/security
+      description: Vehicle lock/unlock controls
+      operations:
+      - name: get-lock-status
+        method: GET
+        description: Get current lock status of doors and windows
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          required: true
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: control-security
+        method: POST
+        description: Lock or unlock vehicle doors
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          required: true
+        body:
+          type: json
+          data:
+            action: '{{tools.action}}'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: location
+      path: /vehicles/{id}/location
+      description: Vehicle location
+      operations:
+      - name: get-location
+        method: GET
+        description: Get current GPS coordinates of the vehicle
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          required: true
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: odometer
+      path: /vehicles/{id}/odometer
+      description: Vehicle odometer reading
+      operations:
+      - name: get-odometer
+        method: GET
+        description: Get the vehicle's current odometer reading
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          required: true
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: fuel
+      path: /vehicles/{id}/fuel
+      description: Vehicle fuel status
+      operations:
+      - name: get-fuel-tank
+        method: GET
+        description: Get fuel tank level, amount, and estimated range
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          required: true
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: engine-oil
+      path: /vehicles/{id}/engine/oil
+      description: Engine oil life
+      operations:
+      - name: get-engine-oil
+        method: GET
+        description: Get remaining engine oil life percentage
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          required: true
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: diagnostics
+      path: /vehicles/{id}/diagnostics/dtcs
+      description: Vehicle diagnostic trouble codes
+      operations:
+      - name: get-diagnostic-codes
+        method: GET
+        description: Get active OBD-II diagnostic trouble codes
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          required: true
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: navigation
+      path: /vehicles/{id}/commands/set-destination
+      description: Vehicle navigation
+      operations:
+      - name: set-destination
+        method: POST
+        description: Set a navigation destination in the vehicle
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          required: true
+        body:
+          type: json
+          data:
+            latitude: '{{tools.latitude}}'
+            longitude: '{{tools.longitude}}'
+            address: '{{tools.address}}'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
   exposes:
-    - type: rest
-      port: 8080
-      namespace: smartcar-vehicle-api
-      description: Unified REST API for connected vehicle telemetry and control.
-      resources:
-        - path: /v1/connections
-          name: connections
-          description: Manage vehicle connections and authorizations
-          operations:
-            - method: GET
-              name: list-connections
-              description: List all authorized vehicle connections
-              call: "smartcar.list-connections"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-        - path: /v1/vehicles/{id}
-          name: vehicle
-          description: Vehicle attributes and metadata
-          operations:
-            - method: GET
-              name: get-vehicle
-              description: Get vehicle make, model, year, and VIN
-              call: "smartcar.get-vehicle"
-              with:
-                id: "rest.id"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-        - path: /v1/vehicles/{id}/battery
-          name: battery
-          description: EV battery status and range
-          operations:
-            - method: GET
-              name: get-battery-level
-              description: Get current battery percentage and estimated range
-              call: "smartcar.get-battery-level"
-              with:
-                id: "rest.id"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-        - path: /v1/vehicles/{id}/charge
-          name: charge
-          description: EV charging status and control
-          operations:
-            - method: GET
-              name: get-charge-status
-              description: Get current charging state and plug-in status
-              call: "smartcar.get-charge-status"
-              with:
-                id: "rest.id"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-            - method: POST
-              name: control-charge
-              description: Start or stop EV charging
-              call: "smartcar.control-charge"
-              with:
-                id: "rest.id"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-        - path: /v1/vehicles/{id}/charge-limit
-          name: charge-limit
-          description: EV charge limit management
-          operations:
-            - method: GET
-              name: get-charge-limit
-              description: Get the current maximum charge limit
-              call: "smartcar.get-charge-limit"
-              with:
-                id: "rest.id"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-            - method: POST
-              name: set-charge-limit
-              description: Set maximum battery charge level
-              call: "smartcar.set-charge-limit"
-              with:
-                id: "rest.id"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-        - path: /v1/vehicles/{id}/security
-          name: security
-          description: Vehicle lock/unlock status and control
-          operations:
-            - method: GET
-              name: get-lock-status
-              description: Get current lock status of doors, windows, and storage
-              call: "smartcar.get-lock-status"
-              with:
-                id: "rest.id"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-            - method: POST
-              name: control-security
-              description: Lock or unlock vehicle doors remotely
-              call: "smartcar.control-security"
-              with:
-                id: "rest.id"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-        - path: /v1/vehicles/{id}/location
-          name: location
-          description: Vehicle GPS location
-          operations:
-            - method: GET
-              name: get-location
-              description: Get current GPS coordinates of the vehicle
-              call: "smartcar.get-location"
-              with:
-                id: "rest.id"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-        - path: /v1/vehicles/{id}/odometer
-          name: odometer
-          description: Vehicle odometer reading
-          operations:
-            - method: GET
-              name: get-odometer
-              description: Get the current odometer reading in kilometers
-              call: "smartcar.get-odometer"
-              with:
-                id: "rest.id"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-        - path: /v1/vehicles/{id}/fuel
-          name: fuel
-          description: ICE vehicle fuel status
-          operations:
-            - method: GET
-              name: get-fuel-tank
-              description: Get fuel level, amount remaining, and estimated range
-              call: "smartcar.get-fuel-tank"
-              with:
-                id: "rest.id"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-        - path: /v1/vehicles/{id}/diagnostics
-          name: diagnostics
-          description: Vehicle diagnostics
-          operations:
-            - method: GET
-              name: get-diagnostic-codes
-              description: Get active OBD-II diagnostic trouble codes
-              call: "smartcar.get-diagnostic-codes"
-              with:
-                id: "rest.id"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-        - path: /v1/vehicles/{id}/destination
-          name: navigation
-          description: Vehicle navigation
-          operations:
-            - method: POST
-              name: set-destination
-              description: Set a navigation destination in the vehicle
-              call: "smartcar.set-destination"
-              with:
-                id: "rest.id"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-
-    - type: mcp
-      port: 9090
-      namespace: smartcar-vehicle-mcp
-      transport: http
-      description: MCP server for AI-assisted connected vehicle management.
-      tools:
-        - name: list-vehicle-connections
-          description: List all connected vehicles authorized via Smartcar
-          hints:
-            readOnly: true
-            openWorld: false
-          call: "smartcar.list-connections"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: get-vehicle-info
-          description: Get make, model, year, and VIN for a connected vehicle
-          hints:
-            readOnly: true
-            openWorld: false
-          call: "smartcar.get-vehicle"
-          with:
-            id: "tools.id"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: get-battery-level
-          description: Get current battery charge percentage and estimated range for an EV
-          hints:
-            readOnly: true
-            openWorld: false
-          call: "smartcar.get-battery-level"
-          with:
-            id: "tools.id"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: get-charge-status
-          description: Check if the EV is plugged in and its current charging state
-          hints:
-            readOnly: true
-            openWorld: false
-          call: "smartcar.get-charge-status"
-          with:
-            id: "tools.id"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: start-charging
-          description: Start EV charging session
-          hints:
-            readOnly: false
-            idempotent: false
-          call: "smartcar.control-charge"
-          with:
-            id: "tools.id"
-            action: "START"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: stop-charging
-          description: Stop EV charging session
-          hints:
-            readOnly: false
-            idempotent: false
-          call: "smartcar.control-charge"
-          with:
-            id: "tools.id"
-            action: "STOP"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: get-charge-limit
-          description: Get the current maximum battery charge limit setting
-          hints:
-            readOnly: true
-            openWorld: false
-          call: "smartcar.get-charge-limit"
-          with:
-            id: "tools.id"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: set-charge-limit
-          description: Set the maximum battery charge percentage limit (0.5 to 1.0)
-          hints:
-            readOnly: false
-            idempotent: true
-          call: "smartcar.set-charge-limit"
-          with:
-            id: "tools.id"
-            limit: "tools.limit"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: get-vehicle-location
-          description: Get current GPS latitude and longitude of the vehicle
-          hints:
-            readOnly: true
-            openWorld: false
-          call: "smartcar.get-location"
-          with:
-            id: "tools.id"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: lock-vehicle
-          description: Remotely lock the vehicle's doors
-          hints:
-            readOnly: false
-            destructive: false
-            idempotent: false
-          call: "smartcar.control-security"
-          with:
-            id: "tools.id"
-            action: "LOCK"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: unlock-vehicle
-          description: Remotely unlock the vehicle's doors
-          hints:
-            readOnly: false
-            destructive: false
-            idempotent: false
-          call: "smartcar.control-security"
-          with:
-            id: "tools.id"
-            action: "UNLOCK"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: get-lock-status
-          description: Check current lock status of all vehicle doors and windows
-          hints:
-            readOnly: true
-            openWorld: false
-          call: "smartcar.get-lock-status"
-          with:
-            id: "tools.id"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: get-odometer
-          description: Read the vehicle's current odometer value in kilometers
-          hints:
-            readOnly: true
-            openWorld: false
-          call: "smartcar.get-odometer"
-          with:
-            id: "tools.id"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: get-fuel-level
-          description: Get fuel tank level, liters remaining, and estimated driving range
-          hints:
-            readOnly: true
-            openWorld: false
-          call: "smartcar.get-fuel-tank"
-          with:
-            id: "tools.id"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: get-engine-oil-life
-          description: Get remaining engine oil life percentage to assess maintenance needs
-          hints:
-            readOnly: true
-            openWorld: false
-          call: "smartcar.get-engine-oil"
-          with:
-            id: "tools.id"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: get-diagnostic-codes
-          description: Read active OBD-II diagnostic trouble codes for vehicle health assessment
-          hints:
-            readOnly: true
-            openWorld: false
-          call: "smartcar.get-diagnostic-codes"
-          with:
-            id: "tools.id"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: set-navigation-destination
-          description: Send a GPS navigation destination to the vehicle's nav system
-          hints:
-            readOnly: false
-            idempotent: false
-          call: "smartcar.set-destination"
-          with:
-            id: "tools.id"
-            latitude: "tools.latitude"
-            longitude: "tools.longitude"
-            address: "tools.address"
-          outputParameters:
-            - type: object
-              mapping: "$."
+  - type: rest
+    port: 8080
+    namespace: smartcar-vehicle-api
+    description: Unified REST API for connected vehicle telemetry and control.
+    resources:
+    - path: /v1/connections
+      name: connections
+      description: Manage vehicle connections and authorizations
+      operations:
+      - method: GET
+        name: list-connections
+        description: List all authorized vehicle connections
+        call: smartcar.list-connections
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/vehicles/{id}
+      name: vehicle
+      description: Vehicle attributes and metadata
+      operations:
+      - method: GET
+        name: get-vehicle
+        description: Get vehicle make, model, year, and VIN
+        call: smartcar.get-vehicle
+        with:
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/vehicles/{id}/battery
+      name: battery
+      description: EV battery status and range
+      operations:
+      - method: GET
+        name: get-battery-level
+        description: Get current battery percentage and estimated range
+        call: smartcar.get-battery-level
+        with:
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/vehicles/{id}/charge
+      name: charge
+      description: EV charging status and control
+      operations:
+      - method: GET
+        name: get-charge-status
+        description: Get current charging state and plug-in status
+        call: smartcar.get-charge-status
+        with:
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: control-charge
+        description: Start or stop EV charging
+        call: smartcar.control-charge
+        with:
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/vehicles/{id}/charge-limit
+      name: charge-limit
+      description: EV charge limit management
+      operations:
+      - method: GET
+        name: get-charge-limit
+        description: Get the current maximum charge limit
+        call: smartcar.get-charge-limit
+        with:
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: set-charge-limit
+        description: Set maximum battery charge level
+        call: smartcar.set-charge-limit
+        with:
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/vehicles/{id}/security
+      name: security
+      description: Vehicle lock/unlock status and control
+      operations:
+      - method: GET
+        name: get-lock-status
+        description: Get current lock status of doors, windows, and storage
+        call: smartcar.get-lock-status
+        with:
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: control-security
+        description: Lock or unlock vehicle doors remotely
+        call: smartcar.control-security
+        with:
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/vehicles/{id}/location
+      name: location
+      description: Vehicle GPS location
+      operations:
+      - method: GET
+        name: get-location
+        description: Get current GPS coordinates of the vehicle
+        call: smartcar.get-location
+        with:
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/vehicles/{id}/odometer
+      name: odometer
+      description: Vehicle odometer reading
+      operations:
+      - method: GET
+        name: get-odometer
+        description: Get the current odometer reading in kilometers
+        call: smartcar.get-odometer
+        with:
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/vehicles/{id}/fuel
+      name: fuel
+      description: ICE vehicle fuel status
+      operations:
+      - method: GET
+        name: get-fuel-tank
+        description: Get fuel level, amount remaining, and estimated range
+        call: smartcar.get-fuel-tank
+        with:
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/vehicles/{id}/diagnostics
+      name: diagnostics
+      description: Vehicle diagnostics
+      operations:
+      - method: GET
+        name: get-diagnostic-codes
+        description: Get active OBD-II diagnostic trouble codes
+        call: smartcar.get-diagnostic-codes
+        with:
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/vehicles/{id}/destination
+      name: navigation
+      description: Vehicle navigation
+      operations:
+      - method: POST
+        name: set-destination
+        description: Set a navigation destination in the vehicle
+        call: smartcar.set-destination
+        with:
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    port: 9090
+    namespace: smartcar-vehicle-mcp
+    transport: http
+    description: MCP server for AI-assisted connected vehicle management.
+    tools:
+    - name: list-vehicle-connections
+      description: List all connected vehicles authorized via Smartcar
+      hints:
+        readOnly: true
+        openWorld: false
+      call: smartcar.list-connections
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-vehicle-info
+      description: Get make, model, year, and VIN for a connected vehicle
+      hints:
+        readOnly: true
+        openWorld: false
+      call: smartcar.get-vehicle
+      with:
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-battery-level
+      description: Get current battery charge percentage and estimated range for an EV
+      hints:
+        readOnly: true
+        openWorld: false
+      call: smartcar.get-battery-level
+      with:
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-charge-status
+      description: Check if the EV is plugged in and its current charging state
+      hints:
+        readOnly: true
+        openWorld: false
+      call: smartcar.get-charge-status
+      with:
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: start-charging
+      description: Start EV charging session
+      hints:
+        readOnly: false
+        idempotent: false
+      call: smartcar.control-charge
+      with:
+        id: tools.id
+        action: START
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: stop-charging
+      description: Stop EV charging session
+      hints:
+        readOnly: false
+        idempotent: false
+      call: smartcar.control-charge
+      with:
+        id: tools.id
+        action: STOP
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-charge-limit
+      description: Get the current maximum battery charge limit setting
+      hints:
+        readOnly: true
+        openWorld: false
+      call: smartcar.get-charge-limit
+      with:
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: set-charge-limit
+      description: Set the maximum battery charge percentage limit (0.5 to 1.0)
+      hints:
+        readOnly: false
+        idempotent: true
+      call: smartcar.set-charge-limit
+      with:
+        id: tools.id
+        limit: tools.limit
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-vehicle-location
+      description: Get current GPS latitude and longitude of the vehicle
+      hints:
+        readOnly: true
+        openWorld: false
+      call: smartcar.get-location
+      with:
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: lock-vehicle
+      description: Remotely lock the vehicle's doors
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: smartcar.control-security
+      with:
+        id: tools.id
+        action: LOCK
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: unlock-vehicle
+      description: Remotely unlock the vehicle's doors
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: smartcar.control-security
+      with:
+        id: tools.id
+        action: UNLOCK
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-lock-status
+      description: Check current lock status of all vehicle doors and windows
+      hints:
+        readOnly: true
+        openWorld: false
+      call: smartcar.get-lock-status
+      with:
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-odometer
+      description: Read the vehicle's current odometer value in kilometers
+      hints:
+        readOnly: true
+        openWorld: false
+      call: smartcar.get-odometer
+      with:
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-fuel-level
+      description: Get fuel tank level, liters remaining, and estimated driving range
+      hints:
+        readOnly: true
+        openWorld: false
+      call: smartcar.get-fuel-tank
+      with:
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-engine-oil-life
+      description: Get remaining engine oil life percentage to assess maintenance needs
+      hints:
+        readOnly: true
+        openWorld: false
+      call: smartcar.get-engine-oil
+      with:
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-diagnostic-codes
+      description: Read active OBD-II diagnostic trouble codes for vehicle health assessment
+      hints:
+        readOnly: true
+        openWorld: false
+      call: smartcar.get-diagnostic-codes
+      with:
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: set-navigation-destination
+      description: Send a GPS navigation destination to the vehicle's nav system
+      hints:
+        readOnly: false
+        idempotent: false
+      call: smartcar.set-destination
+      with:
+        id: tools.id
+        latitude: tools.latitude
+        longitude: tools.longitude
+        address: tools.address
+      outputParameters:
+      - type: object
+        mapping: $.
