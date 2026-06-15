@@ -1,0 +1,452 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Smartcar Vehicles API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Connections",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Connections",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vehicle.api.smartcar.com/v2.0/connections"
+          },
+          "docs": "Returns all vehicle connections associated with the authorized user."
+        },
+        {
+          "info": {
+            "name": "Get Connection",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vehicle.api.smartcar.com/v2.0/connections/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Connection ID"
+              }
+            ]
+          },
+          "docs": "Retrieves a specific vehicle connection by connection ID."
+        },
+        {
+          "info": {
+            "name": "Remove Connection",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://vehicle.api.smartcar.com/v2.0/connections/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Connection ID"
+              }
+            ]
+          },
+          "docs": "Removes a vehicle connection, revoking access to that vehicle."
+        },
+        {
+          "info": {
+            "name": "Remove User",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://vehicle.api.smartcar.com/v2.0/users/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "User ID"
+              }
+            ]
+          },
+          "docs": "Removes all vehicle connections for a specific user."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Vehicle Data",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Vehicle",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vehicle.api.smartcar.com/v2.0/vehicles/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Vehicle ID"
+              }
+            ]
+          },
+          "docs": "Retrieves attributes and metadata for a specific vehicle."
+        },
+        {
+          "info": {
+            "name": "Get Vehicle Signals",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vehicle.api.smartcar.com/v2.0/vehicles/:id/signals",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Vehicle ID"
+              }
+            ]
+          },
+          "docs": "Reads all available signals (telemetry data) for a vehicle."
+        },
+        {
+          "info": {
+            "name": "Get Battery Level",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vehicle.api.smartcar.com/v2.0/vehicles/:id/battery",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves the current battery level and estimated range for an electric or hybrid vehicle. Requires the read_battery permission."
+        },
+        {
+          "info": {
+            "name": "Get Location",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vehicle.api.smartcar.com/v2.0/vehicles/:id/location",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves the current GPS coordinates of the vehicle. Requires the read_location permission."
+        },
+        {
+          "info": {
+            "name": "Get Odometer",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vehicle.api.smartcar.com/v2.0/vehicles/:id/odometer",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves the vehicle's current odometer reading. Requires the read_odometer permission."
+        },
+        {
+          "info": {
+            "name": "Get Fuel Tank",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vehicle.api.smartcar.com/v2.0/vehicles/:id/fuel",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves fuel tank status including percentage remaining, amount remaining, and estimated range. Requires the read_fuel permission."
+        },
+        {
+          "info": {
+            "name": "Get Engine Oil Life",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vehicle.api.smartcar.com/v2.0/vehicles/:id/engine/oil",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves the remaining engine oil life as a percentage. Requires the read_engine_oil permission."
+        },
+        {
+          "info": {
+            "name": "Get Diagnostic Trouble Codes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vehicle.api.smartcar.com/v2.0/vehicles/:id/diagnostics/dtcs",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves active diagnostic trouble codes (DTCs) from the vehicle's OBD-II system. Requires the read_diagnostics permission."
+        },
+        {
+          "info": {
+            "name": "Get Vehicle Permissions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vehicle.api.smartcar.com/v2.0/vehicles/:id/permissions",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Lists all permissions granted for the vehicle."
+        },
+        {
+          "info": {
+            "name": "Batch Vehicle Data Requests",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://vehicle.api.smartcar.com/v2.0/vehicles/:id/batch",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Sends multiple data requests in a single API call and returns all responses together, reducing round-trips."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Charging",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Charge Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vehicle.api.smartcar.com/v2.0/vehicles/:id/charge",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves the current charging status of an EV including plug-in state and charge progression. Requires the read_charge permission."
+        },
+        {
+          "info": {
+            "name": "Start Or Stop Charging",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://vehicle.api.smartcar.com/v2.0/vehicles/:id/charge",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Starts or stops charging for an electric vehicle. Requires the control_charge permission."
+        },
+        {
+          "info": {
+            "name": "Get Charge Limit",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vehicle.api.smartcar.com/v2.0/vehicles/:id/charge/limit",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves the current charge limit setting for an EV."
+        },
+        {
+          "info": {
+            "name": "Set Charge Limit",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://vehicle.api.smartcar.com/v2.0/vehicles/:id/charge/limit",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Sets the maximum battery charge level (as a percentage) for an EV. Requires the control_charge permission."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Security",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Lock Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vehicle.api.smartcar.com/v2.0/vehicles/:id/security",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves the current lock/unlock status of the vehicle's doors, windows, storage, sunroof, and charge port. Requires the read_security permission."
+        },
+        {
+          "info": {
+            "name": "Lock Or Unlock Doors",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://vehicle.api.smartcar.com/v2.0/vehicles/:id/security",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Locks or unlocks the vehicle's doors remotely. Requires the control_security permission."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Navigation",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Set Navigation Destination",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://vehicle.api.smartcar.com/v2.0/vehicles/:id/commands/set-destination",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Sets a navigation destination for the vehicle. Requires the control_navigation permission."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
