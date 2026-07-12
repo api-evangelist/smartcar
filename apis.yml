@@ -47,6 +47,12 @@ apis:
       - type: Postman
         url: https://www.postman.com/smartcar/smartcar-api/documentation/fqmwehs/smartcar-api
 common:
+  - type: TrustCenter
+    url: security/smartcar-trust-center.yml
+  - type: DomainSecurity
+    url: security/smartcar-domain-security.yml
+  - type: Authentication
+    url: authentication/smartcar-authentication.yml
   - type: LinkedIn
     url: https://www.linkedin.com/company/smartcar
   - type: Portal

@@ -1,0 +1,14 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/smartcar-vehicles-openapi.yml
+summary:
+  types:
+  - http
+schemes:
+- name: BearerAuth
+  type: http
+  scheme: bearer
+  description: OAuth 2.0 access token obtained via Authorization Code or Client Credentials
+    flow
+  sources:
+  - openapi/smartcar-vehicles-openapi.yml
