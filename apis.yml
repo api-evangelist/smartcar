@@ -47,6 +47,8 @@ apis:
       - type: Postman
         url: https://www.postman.com/smartcar/smartcar-api/documentation/fqmwehs/smartcar-api
 common:
+  - type: AgenticAccess
+    url: agentic-access/smartcar-agentic-access.yml
   - type: TrustCenter
     url: security/smartcar-trust-center.yml
   - type: DomainSecurity
