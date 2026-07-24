@@ -1,0 +1,160 @@
+openapi: 3.0.3
+info:
+  title: Smartcar Vehicles Charging Connections API
+  description: The Smartcar Vehicles API provides a standardized REST interface for accessing connected vehicle data and sending commands to vehicles across multiple OEMs through a single integration. Retrieve signals such as battery level, odometer, location, fuel, engine oil life, and lock status, or issue commands like lock/unlock doors, start/stop charging, set charge limits, and set navigation destinations. Authentication uses OAuth 2.0 with user-granted permissions per vehicle.
+  version: 2.0.0
+  termsOfService: https://smartcar.com/terms/
+  contact:
+    name: Smartcar Support
+    url: https://smartcar.com/docs/
+    email: support@smartcar.com
+  license:
+    name: Smartcar API License
+    url: https://smartcar.com/terms/
+servers:
+- url: https://vehicle.api.smartcar.com/v2.0
+  description: Smartcar Vehicle API v2.0
+- url: https://management.api.smartcar.com/v3
+  description: Smartcar Management API v3
+security:
+- BearerAuth: []
+tags:
+- name: Connections
+  description: Manage vehicle connections and user authorizations
+paths:
+  /connections:
+    get:
+      operationId: listConnections
+      summary: List Connections
+      description: Returns all vehicle connections associated with the authorized user.
+      tags:
+      - Connections
+      responses:
+        '200':
+          description: List of vehicle connections
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  connections:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Connection'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /connections/{id}:
+    get:
+      operationId: getConnection
+      summary: Get Connection
+      description: Retrieves a specific vehicle connection by connection ID.
+      tags:
+      - Connections
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Connection ID
+      responses:
+        '200':
+          description: Connection details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Connection'
+        '404':
+          description: Connection not found
+    delete:
+      operationId: removeConnection
+      summary: Remove Connection
+      description: Removes a vehicle connection, revoking access to that vehicle.
+      tags:
+      - Connections
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Connection ID
+      responses:
+        '200':
+          description: Connection removed
+        '404':
+          description: Not found
+  /users/{id}:
+    delete:
+      operationId: removeUser
+      summary: Remove User
+      description: Removes all vehicle connections for a specific user.
+      tags:
+      - Connections
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: User ID
+      responses:
+        '200':
+          description: User removed
+components:
+  schemas:
+    Error:
+      type: object
+      properties:
+        type:
+          type: string
+          description: Error category
+        code:
+          type: string
+          description: Short error identifier
+        title:
+          type: string
+          description: Human-readable error title
+        detail:
+          type: string
+          description: Detailed error description
+        status:
+          type: integer
+          description: HTTP status code
+        resolution:
+          type: string
+          enum:
+          - RETRY_LATER
+          - REAUTHENTICATE
+          - CONTACT_SUPPORT
+        suggestedUserMessage:
+          type: string
+    Connection:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique connection identifier
+        vehicleId:
+          type: string
+          description: Associated vehicle identifier
+        userId:
+          type: string
+          description: User who authorized this connection
+        status:
+          type: string
+          enum:
+          - ACTIVE
+          - REVOKED
+        created:
+          type: string
+          format: date-time
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: OAuth 2.0 access token obtained via Authorization Code or Client Credentials flow

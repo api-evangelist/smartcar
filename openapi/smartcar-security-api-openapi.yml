@@ -1,0 +1,116 @@
+openapi: 3.0.3
+info:
+  title: Smartcar Vehicles Charging Security API
+  description: The Smartcar Vehicles API provides a standardized REST interface for accessing connected vehicle data and sending commands to vehicles across multiple OEMs through a single integration. Retrieve signals such as battery level, odometer, location, fuel, engine oil life, and lock status, or issue commands like lock/unlock doors, start/stop charging, set charge limits, and set navigation destinations. Authentication uses OAuth 2.0 with user-granted permissions per vehicle.
+  version: 2.0.0
+  termsOfService: https://smartcar.com/terms/
+  contact:
+    name: Smartcar Support
+    url: https://smartcar.com/docs/
+    email: support@smartcar.com
+  license:
+    name: Smartcar API License
+    url: https://smartcar.com/terms/
+servers:
+- url: https://vehicle.api.smartcar.com/v2.0
+  description: Smartcar Vehicle API v2.0
+- url: https://management.api.smartcar.com/v3
+  description: Smartcar Management API v3
+security:
+- BearerAuth: []
+tags:
+- name: Security
+  description: Vehicle security, locking and unlocking
+paths:
+  /vehicles/{id}/security:
+    get:
+      operationId: getLockStatus
+      summary: Get Lock Status
+      description: Retrieves the current lock/unlock status of the vehicle's doors, windows, storage, sunroof, and charge port. Requires the read_security permission.
+      tags:
+      - Security
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Security status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SecurityStatus'
+    post:
+      operationId: controlSecurity
+      summary: Lock Or Unlock Doors
+      description: Locks or unlocks the vehicle's doors remotely. Requires the control_security permission.
+      tags:
+      - Security
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - action
+              properties:
+                action:
+                  type: string
+                  enum:
+                  - LOCK
+                  - UNLOCK
+                  description: Whether to lock or unlock the vehicle
+      responses:
+        '200':
+          description: Command result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommandResult'
+components:
+  schemas:
+    SecurityStatus:
+      type: object
+      properties:
+        isLocked:
+          type: boolean
+          description: Whether the vehicle is locked
+        doors:
+          type: array
+          items:
+            type: object
+            properties:
+              type:
+                type: string
+              status:
+                type: string
+                enum:
+                - LOCKED
+                - UNLOCKED
+                - UNKNOWN
+    CommandResult:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - success
+          - error
+          - pending
+        message:
+          type: string
+          description: Human-readable result message
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: OAuth 2.0 access token obtained via Authorization Code or Client Credentials flow
