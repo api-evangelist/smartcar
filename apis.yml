@@ -7,6 +7,19 @@ description: >-
   integration. Smartcar supports OAuth 2.0 authorization and covers EVs and ICE vehicles from dozens of OEMs including
   Tesla, Ford, BMW, Honda, and more.
 url: https://raw.githubusercontent.com/api-evangelist/smartcar/refs/heads/main/apis.yml
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
 created: '2026-03-16'
 modified: '2026-05-19'
 specificationVersion: '0.19'
@@ -19,33 +32,93 @@ tags:
   - EV Management
   - Telematics
 type: Index
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/smartcar.png
 apis:
-  - aid: smartcar:vehicles-api
-    name: Smartcar Vehicles API
-    description: >-
-      The Smartcar Vehicles API lets you access standardized vehicle data and send commands to connected vehicles.
-      Retrieve signals such as battery level, odometer, location, fuel, engine oil, and diagnostic codes, as well as
-      issue commands like lock/unlock doors, start/stop charging, set charge limit, and set navigation destinations
-      across multiple vehicle brands. Uses OAuth 2.0 bearer token authentication.
-    humanURL: https://smartcar.com/docs/api/
-    tags:
-      - Connected Cars
-      - Telematics
-      - Vehicles
-      - Fleet
-      - EV
-    properties:
-      - type: Documentation
-        url: https://smartcar.com/docs/api/
-      - type: Reference
-        url: https://smartcar.com/docs/api-reference/intro
-      - type: Authentication
-        url: https://smartcar.com/docs/api-reference/intro
-      - type: OpenAPI
-        url: openapi/smartcar-vehicles-openapi.yml
-      - type: Postman
-        url: https://www.postman.com/smartcar/smartcar-api/documentation/fqmwehs/smartcar-api
+- aid: smartcar:smartcar-charging-api
+  name: Smartcar Charging API
+  description: EV charging management and status
+  humanURL: https://smartcar.com/docs/api/
+  tags:
+  - Charging
+  properties:
+  - type: OpenAPI
+    url: openapi/smartcar-charging-api-openapi.yml
+  - type: Documentation
+    url: https://smartcar.com/docs/api/
+  - type: Reference
+    url: https://smartcar.com/docs/api-reference/intro
+  - type: Authentication
+    url: https://smartcar.com/docs/api-reference/intro
+  - type: Postman
+    url: https://www.postman.com/smartcar/smartcar-api/documentation/fqmwehs/smartcar-api
+- aid: smartcar:smartcar-connections-api
+  name: Smartcar Connections API
+  description: Manage vehicle connections and user authorizations
+  humanURL: https://smartcar.com/docs/api/
+  tags:
+  - Connections
+  properties:
+  - type: OpenAPI
+    url: openapi/smartcar-connections-api-openapi.yml
+  - type: Documentation
+    url: https://smartcar.com/docs/api/
+  - type: Reference
+    url: https://smartcar.com/docs/api-reference/intro
+  - type: Authentication
+    url: https://smartcar.com/docs/api-reference/intro
+  - type: Postman
+    url: https://www.postman.com/smartcar/smartcar-api/documentation/fqmwehs/smartcar-api
+- aid: smartcar:smartcar-navigation-api
+  name: Smartcar Navigation API
+  description: Vehicle navigation and destination setting
+  humanURL: https://smartcar.com/docs/api/
+  tags:
+  - Navigation
+  properties:
+  - type: OpenAPI
+    url: openapi/smartcar-navigation-api-openapi.yml
+  - type: Documentation
+    url: https://smartcar.com/docs/api/
+  - type: Reference
+    url: https://smartcar.com/docs/api-reference/intro
+  - type: Authentication
+    url: https://smartcar.com/docs/api-reference/intro
+  - type: Postman
+    url: https://www.postman.com/smartcar/smartcar-api/documentation/fqmwehs/smartcar-api
+- aid: smartcar:smartcar-security-api
+  name: Smartcar Security API
+  description: Vehicle security, locking and unlocking
+  humanURL: https://smartcar.com/docs/api/
+  tags:
+  - Security
+  properties:
+  - type: OpenAPI
+    url: openapi/smartcar-security-api-openapi.yml
+  - type: Documentation
+    url: https://smartcar.com/docs/api/
+  - type: Reference
+    url: https://smartcar.com/docs/api-reference/intro
+  - type: Authentication
+    url: https://smartcar.com/docs/api-reference/intro
+  - type: Postman
+    url: https://www.postman.com/smartcar/smartcar-api/documentation/fqmwehs/smartcar-api
+- aid: smartcar:smartcar-vehicle-data-api
+  name: Smartcar Vehicle Data API
+  description: Read vehicle signals and status data
+  humanURL: https://smartcar.com/docs/api/
+  tags:
+  - Vehicle Data
+  properties:
+  - type: OpenAPI
+    url: openapi/smartcar-vehicle-data-api-openapi.yml
+  - type: Documentation
+    url: https://smartcar.com/docs/api/
+  - type: Reference
+    url: https://smartcar.com/docs/api-reference/intro
+  - type: Authentication
+    url: https://smartcar.com/docs/api-reference/intro
+  - type: Postman
+    url: https://www.postman.com/smartcar/smartcar-api/documentation/fqmwehs/smartcar-api
 common:
   - type: AgenticAccess
     url: agentic-access/smartcar-agentic-access.yml
