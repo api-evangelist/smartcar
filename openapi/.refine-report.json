@@ -1,0 +1,22 @@
+{
+  "provider": "smartcar",
+  "sources": [
+    "smartcar-charging-api-openapi.yml",
+    "smartcar-connections-api-openapi.yml",
+    "smartcar-navigation-api-openapi.yml",
+    "smartcar-security-api-openapi.yml",
+    "smartcar-vehicle-data-api-openapi.yml"
+  ],
+  "outputs": [
+    "smartcar-charging-api-openapi.yml",
+    "smartcar-connections-api-openapi.yml",
+    "smartcar-navigation-api-openapi.yml",
+    "smartcar-security-api-openapi.yml",
+    "smartcar-vehicle-data-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

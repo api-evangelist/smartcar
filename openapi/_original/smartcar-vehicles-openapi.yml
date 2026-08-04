@@ -1,0 +1,771 @@
+openapi: 3.0.3
+info:
+  title: Smartcar Vehicles API
+  description: >-
+    The Smartcar Vehicles API provides a standardized REST interface for
+    accessing connected vehicle data and sending commands to vehicles across
+    multiple OEMs through a single integration. Retrieve signals such as
+    battery level, odometer, location, fuel, engine oil life, and lock status,
+    or issue commands like lock/unlock doors, start/stop charging, set charge
+    limits, and set navigation destinations. Authentication uses OAuth 2.0
+    with user-granted permissions per vehicle.
+  version: 2.0.0
+  termsOfService: https://smartcar.com/terms/
+  contact:
+    name: Smartcar Support
+    url: https://smartcar.com/docs/
+    email: support@smartcar.com
+  license:
+    name: Smartcar API License
+    url: https://smartcar.com/terms/
+servers:
+  - url: https://vehicle.api.smartcar.com/v2.0
+    description: Smartcar Vehicle API v2.0
+  - url: https://management.api.smartcar.com/v3
+    description: Smartcar Management API v3
+tags:
+  - name: Connections
+    description: Manage vehicle connections and user authorizations
+  - name: Vehicle Data
+    description: Read vehicle signals and status data
+  - name: Vehicle Commands
+    description: Send commands to control vehicle functions
+  - name: Charging
+    description: EV charging management and status
+  - name: Security
+    description: Vehicle security, locking and unlocking
+  - name: Navigation
+    description: Vehicle navigation and destination setting
+  - name: Compatibility
+    description: Check vehicle compatibility with Smartcar
+security:
+  - BearerAuth: []
+paths:
+  /connections:
+    get:
+      operationId: listConnections
+      summary: List Connections
+      description: Returns all vehicle connections associated with the authorized user.
+      tags:
+        - Connections
+      responses:
+        '200':
+          description: List of vehicle connections
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  connections:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Connection'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /connections/{id}:
+    get:
+      operationId: getConnection
+      summary: Get Connection
+      description: Retrieves a specific vehicle connection by connection ID.
+      tags:
+        - Connections
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Connection ID
+      responses:
+        '200':
+          description: Connection details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Connection'
+        '404':
+          description: Connection not found
+    delete:
+      operationId: removeConnection
+      summary: Remove Connection
+      description: Removes a vehicle connection, revoking access to that vehicle.
+      tags:
+        - Connections
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Connection ID
+      responses:
+        '200':
+          description: Connection removed
+        '404':
+          description: Not found
+  /users/{id}:
+    delete:
+      operationId: removeUser
+      summary: Remove User
+      description: Removes all vehicle connections for a specific user.
+      tags:
+        - Connections
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: User ID
+      responses:
+        '200':
+          description: User removed
+  /vehicles/{id}:
+    get:
+      operationId: getVehicle
+      summary: Get Vehicle
+      description: Retrieves attributes and metadata for a specific vehicle.
+      tags:
+        - Vehicle Data
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Vehicle ID
+      responses:
+        '200':
+          description: Vehicle attributes
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Vehicle'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Vehicle not found
+  /vehicles/{id}/signals:
+    get:
+      operationId: getSignals
+      summary: Get Vehicle Signals
+      description: Reads all available signals (telemetry data) for a vehicle.
+      tags:
+        - Vehicle Data
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Vehicle ID
+      responses:
+        '200':
+          description: Vehicle signals
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Signals'
+  /vehicles/{id}/battery:
+    get:
+      operationId: getBatteryLevel
+      summary: Get Battery Level
+      description: >-
+        Retrieves the current battery level and estimated range for an electric
+        or hybrid vehicle. Requires the read_battery permission.
+      tags:
+        - Vehicle Data
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Battery status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Battery'
+        '409':
+          description: Vehicle state conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /vehicles/{id}/charge:
+    get:
+      operationId: getChargeStatus
+      summary: Get Charge Status
+      description: >-
+        Retrieves the current charging status of an EV including plug-in state
+        and charge progression. Requires the read_charge permission.
+      tags:
+        - Charging
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Charging status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChargeStatus'
+    post:
+      operationId: controlCharge
+      summary: Start Or Stop Charging
+      description: >-
+        Starts or stops charging for an electric vehicle. Requires the
+        control_charge permission.
+      tags:
+        - Charging
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [action]
+              properties:
+                action:
+                  type: string
+                  enum: [START, STOP]
+                  description: Whether to start or stop charging
+      responses:
+        '200':
+          description: Command result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommandResult'
+  /vehicles/{id}/charge/limit:
+    get:
+      operationId: getChargeLimit
+      summary: Get Charge Limit
+      description: Retrieves the current charge limit setting for an EV.
+      tags:
+        - Charging
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Charge limit
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChargeLimit'
+    post:
+      operationId: setChargeLimit
+      summary: Set Charge Limit
+      description: >-
+        Sets the maximum battery charge level (as a percentage) for an EV.
+        Requires the control_charge permission.
+      tags:
+        - Charging
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [limit]
+              properties:
+                limit:
+                  type: number
+                  minimum: 0.5
+                  maximum: 1.0
+                  description: Charge limit as a decimal (0.5 to 1.0)
+      responses:
+        '200':
+          description: Command result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommandResult'
+  /vehicles/{id}/security:
+    get:
+      operationId: getLockStatus
+      summary: Get Lock Status
+      description: >-
+        Retrieves the current lock/unlock status of the vehicle's doors, windows,
+        storage, sunroof, and charge port. Requires the read_security permission.
+      tags:
+        - Security
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Security status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SecurityStatus'
+    post:
+      operationId: controlSecurity
+      summary: Lock Or Unlock Doors
+      description: >-
+        Locks or unlocks the vehicle's doors remotely. Requires the
+        control_security permission.
+      tags:
+        - Security
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [action]
+              properties:
+                action:
+                  type: string
+                  enum: [LOCK, UNLOCK]
+                  description: Whether to lock or unlock the vehicle
+      responses:
+        '200':
+          description: Command result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommandResult'
+  /vehicles/{id}/location:
+    get:
+      operationId: getLocation
+      summary: Get Location
+      description: >-
+        Retrieves the current GPS coordinates of the vehicle.
+        Requires the read_location permission.
+      tags:
+        - Vehicle Data
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Vehicle location
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Location'
+  /vehicles/{id}/odometer:
+    get:
+      operationId: getOdometer
+      summary: Get Odometer
+      description: >-
+        Retrieves the vehicle's current odometer reading.
+        Requires the read_odometer permission.
+      tags:
+        - Vehicle Data
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Odometer reading
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Odometer'
+  /vehicles/{id}/fuel:
+    get:
+      operationId: getFuelTank
+      summary: Get Fuel Tank
+      description: >-
+        Retrieves fuel tank status including percentage remaining, amount
+        remaining, and estimated range. Requires the read_fuel permission.
+      tags:
+        - Vehicle Data
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Fuel tank status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FuelTank'
+  /vehicles/{id}/engine/oil:
+    get:
+      operationId: getEngineOil
+      summary: Get Engine Oil Life
+      description: >-
+        Retrieves the remaining engine oil life as a percentage.
+        Requires the read_engine_oil permission.
+      tags:
+        - Vehicle Data
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Engine oil life
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EngineOil'
+  /vehicles/{id}/diagnostics/dtcs:
+    get:
+      operationId: getDiagnosticCodes
+      summary: Get Diagnostic Trouble Codes
+      description: >-
+        Retrieves active diagnostic trouble codes (DTCs) from the vehicle's
+        OBD-II system. Requires the read_diagnostics permission.
+      tags:
+        - Vehicle Data
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Diagnostic trouble codes
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DiagnosticCodes'
+  /vehicles/{id}/permissions:
+    get:
+      operationId: getPermissions
+      summary: Get Vehicle Permissions
+      description: Lists all permissions granted for the vehicle.
+      tags:
+        - Vehicle Data
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Granted permissions
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  permissions:
+                    type: array
+                    items:
+                      type: string
+  /vehicles/{id}/batch:
+    post:
+      operationId: batchRequests
+      summary: Batch Vehicle Data Requests
+      description: >-
+        Sends multiple data requests in a single API call and returns
+        all responses together, reducing round-trips.
+      tags:
+        - Vehicle Data
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                requests:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      path:
+                        type: string
+                        description: Endpoint path to batch (e.g., /battery, /fuel)
+      responses:
+        '200':
+          description: Batch response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  responses:
+                    type: array
+                    items:
+                      type: object
+  /vehicles/{id}/commands/set-destination:
+    post:
+      operationId: setDestination
+      summary: Set Navigation Destination
+      description: >-
+        Sets a navigation destination for the vehicle.
+        Requires the control_navigation permission.
+      tags:
+        - Navigation
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [latitude, longitude]
+              properties:
+                latitude:
+                  type: number
+                  description: Destination latitude
+                longitude:
+                  type: number
+                  description: Destination longitude
+                address:
+                  type: string
+                  description: Optional human-readable destination address
+      responses:
+        '200':
+          description: Command result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommandResult'
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: OAuth 2.0 access token obtained via Authorization Code or Client Credentials flow
+  schemas:
+    Connection:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique connection identifier
+        vehicleId:
+          type: string
+          description: Associated vehicle identifier
+        userId:
+          type: string
+          description: User who authorized this connection
+        status:
+          type: string
+          enum: [ACTIVE, REVOKED]
+        created:
+          type: string
+          format: date-time
+    Vehicle:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique vehicle identifier
+        make:
+          type: string
+          description: Vehicle manufacturer (e.g., Tesla, Ford)
+        model:
+          type: string
+          description: Vehicle model name
+        year:
+          type: integer
+          description: Vehicle model year
+        vin:
+          type: string
+          description: Vehicle identification number
+    Signals:
+      type: object
+      properties:
+        battery:
+          $ref: '#/components/schemas/Battery'
+        charge:
+          $ref: '#/components/schemas/ChargeStatus'
+        location:
+          $ref: '#/components/schemas/Location'
+        odometer:
+          $ref: '#/components/schemas/Odometer'
+        fuel:
+          $ref: '#/components/schemas/FuelTank'
+    Battery:
+      type: object
+      properties:
+        percentRemaining:
+          type: number
+          minimum: 0
+          maximum: 1
+          description: Battery charge level as a decimal (0.0 to 1.0)
+        range:
+          type: number
+          description: Estimated remaining range in kilometers
+      required: [percentRemaining, range]
+    ChargeStatus:
+      type: object
+      properties:
+        isPluggedIn:
+          type: boolean
+          description: Whether the vehicle is currently plugged in
+        state:
+          type: string
+          enum: [CHARGING, FULLY_CHARGED, NOT_CHARGING]
+          description: Current charging state
+      required: [isPluggedIn, state]
+    ChargeLimit:
+      type: object
+      properties:
+        limit:
+          type: number
+          minimum: 0.5
+          maximum: 1.0
+          description: Maximum charge limit as a decimal
+      required: [limit]
+    SecurityStatus:
+      type: object
+      properties:
+        isLocked:
+          type: boolean
+          description: Whether the vehicle is locked
+        doors:
+          type: array
+          items:
+            type: object
+            properties:
+              type:
+                type: string
+              status:
+                type: string
+                enum: [LOCKED, UNLOCKED, UNKNOWN]
+    Location:
+      type: object
+      properties:
+        latitude:
+          type: number
+          description: GPS latitude coordinate
+        longitude:
+          type: number
+          description: GPS longitude coordinate
+      required: [latitude, longitude]
+    Odometer:
+      type: object
+      properties:
+        distance:
+          type: number
+          description: Odometer reading in kilometers
+      required: [distance]
+    FuelTank:
+      type: object
+      properties:
+        percentRemaining:
+          type: number
+          minimum: 0
+          maximum: 1
+          description: Fuel level as a decimal
+        amountRemaining:
+          type: number
+          description: Fuel remaining in liters
+        range:
+          type: number
+          description: Estimated remaining range in kilometers
+      required: [percentRemaining]
+    EngineOil:
+      type: object
+      properties:
+        lifeRemaining:
+          type: number
+          minimum: 0
+          maximum: 1
+          description: Engine oil life remaining as a decimal
+      required: [lifeRemaining]
+    DiagnosticCodes:
+      type: object
+      properties:
+        activeCodes:
+          type: array
+          items:
+            type: object
+            properties:
+              code:
+                type: string
+                description: OBD-II DTC code (e.g., P0300)
+              timestamp:
+                type: string
+                format: date-time
+    CommandResult:
+      type: object
+      properties:
+        status:
+          type: string
+          enum: [success, error, pending]
+        message:
+          type: string
+          description: Human-readable result message
+    Error:
+      type: object
+      properties:
+        type:
+          type: string
+          description: Error category
+        code:
+          type: string
+          description: Short error identifier
+        title:
+          type: string
+          description: Human-readable error title
+        detail:
+          type: string
+          description: Detailed error description
+        status:
+          type: integer
+          description: HTTP status code
+        resolution:
+          type: string
+          enum: [RETRY_LATER, REAUTHENTICATE, CONTACT_SUPPORT]
+        suggestedUserMessage:
+          type: string
