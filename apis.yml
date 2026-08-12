@@ -141,11 +141,9 @@ common:
   - type: Pricing
     url: https://smartcar.com/pricing/
   - type: OpenAPI
-    url: openapi/smartcar-vehicles-openapi.yml
+    url: openapi/_original/smartcar-vehicles-openapi.yml
   - type: Spectral
     url: rules/smartcar-rules.yml
-  - type: Capabilities
-    url: capabilities/connected-vehicle-management.yaml
   - type: JSONSchema
     url: json-schema/smartcar-vehicle-schema.json
   - type: JSONSchema
