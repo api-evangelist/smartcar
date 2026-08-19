@@ -1,0 +1,210 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Smartcar Vehicles Charging Vehicle Data API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Vehicle Data",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Vehicle",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vehicle.api.smartcar.com/v2.0/vehicles/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Vehicle ID"
+              }
+            ]
+          },
+          "docs": "Retrieves attributes and metadata for a specific vehicle."
+        },
+        {
+          "info": {
+            "name": "Get Vehicle Signals",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vehicle.api.smartcar.com/v2.0/vehicles/:id/signals",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Vehicle ID"
+              }
+            ]
+          },
+          "docs": "Reads all available signals (telemetry data) for a vehicle."
+        },
+        {
+          "info": {
+            "name": "Get Battery Level",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vehicle.api.smartcar.com/v2.0/vehicles/:id/battery",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves the current battery level and estimated range for an electric or hybrid vehicle. Requires the read_battery permission."
+        },
+        {
+          "info": {
+            "name": "Get Location",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vehicle.api.smartcar.com/v2.0/vehicles/:id/location",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves the current GPS coordinates of the vehicle. Requires the read_location permission."
+        },
+        {
+          "info": {
+            "name": "Get Odometer",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vehicle.api.smartcar.com/v2.0/vehicles/:id/odometer",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves the vehicle's current odometer reading. Requires the read_odometer permission."
+        },
+        {
+          "info": {
+            "name": "Get Fuel Tank",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vehicle.api.smartcar.com/v2.0/vehicles/:id/fuel",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves fuel tank status including percentage remaining, amount remaining, and estimated range. Requires the read_fuel permission."
+        },
+        {
+          "info": {
+            "name": "Get Engine Oil Life",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vehicle.api.smartcar.com/v2.0/vehicles/:id/engine/oil",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves the remaining engine oil life as a percentage. Requires the read_engine_oil permission."
+        },
+        {
+          "info": {
+            "name": "Get Diagnostic Trouble Codes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vehicle.api.smartcar.com/v2.0/vehicles/:id/diagnostics/dtcs",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves active diagnostic trouble codes (DTCs) from the vehicle's OBD-II system. Requires the read_diagnostics permission."
+        },
+        {
+          "info": {
+            "name": "Get Vehicle Permissions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vehicle.api.smartcar.com/v2.0/vehicles/:id/permissions",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Lists all permissions granted for the vehicle."
+        },
+        {
+          "info": {
+            "name": "Batch Vehicle Data Requests",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://vehicle.api.smartcar.com/v2.0/vehicles/:id/batch",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Sends multiple data requests in a single API call and returns all responses together, reducing round-trips."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

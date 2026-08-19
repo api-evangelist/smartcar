@@ -1,0 +1,64 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Smartcar Vehicles Charging Security API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Security",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Lock Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vehicle.api.smartcar.com/v2.0/vehicles/:id/security",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves the current lock/unlock status of the vehicle's doors, windows, storage, sunroof, and charge port. Requires the read_security permission."
+        },
+        {
+          "info": {
+            "name": "Lock Or Unlock Doors",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://vehicle.api.smartcar.com/v2.0/vehicles/:id/security",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Locks or unlocks the vehicle's doors remotely. Requires the control_security permission."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

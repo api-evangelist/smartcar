@@ -1,0 +1,104 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Smartcar Vehicles Charging API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Charging",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Charge Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vehicle.api.smartcar.com/v2.0/vehicles/:id/charge",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves the current charging status of an EV including plug-in state and charge progression. Requires the read_charge permission."
+        },
+        {
+          "info": {
+            "name": "Start Or Stop Charging",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://vehicle.api.smartcar.com/v2.0/vehicles/:id/charge",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Starts or stops charging for an electric vehicle. Requires the control_charge permission."
+        },
+        {
+          "info": {
+            "name": "Get Charge Limit",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vehicle.api.smartcar.com/v2.0/vehicles/:id/charge/limit",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves the current charge limit setting for an EV."
+        },
+        {
+          "info": {
+            "name": "Set Charge Limit",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://vehicle.api.smartcar.com/v2.0/vehicles/:id/charge/limit",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Sets the maximum battery charge level (as a percentage) for an EV. Requires the control_charge permission."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

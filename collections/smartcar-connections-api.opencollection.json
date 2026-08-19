@@ -1,0 +1,92 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Smartcar Vehicles Charging Connections API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Connections",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Connections",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vehicle.api.smartcar.com/v2.0/connections"
+          },
+          "docs": "Returns all vehicle connections associated with the authorized user."
+        },
+        {
+          "info": {
+            "name": "Get Connection",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vehicle.api.smartcar.com/v2.0/connections/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Connection ID"
+              }
+            ]
+          },
+          "docs": "Retrieves a specific vehicle connection by connection ID."
+        },
+        {
+          "info": {
+            "name": "Remove Connection",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://vehicle.api.smartcar.com/v2.0/connections/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Connection ID"
+              }
+            ]
+          },
+          "docs": "Removes a vehicle connection, revoking access to that vehicle."
+        },
+        {
+          "info": {
+            "name": "Remove User",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://vehicle.api.smartcar.com/v2.0/users/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "User ID"
+              }
+            ]
+          },
+          "docs": "Removes all vehicle connections for a specific user."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,46 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Smartcar Vehicles Charging Navigation API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Navigation",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Set Navigation Destination",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://vehicle.api.smartcar.com/v2.0/vehicles/:id/commands/set-destination",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Sets a navigation destination for the vehicle. Requires the control_navigation permission."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
