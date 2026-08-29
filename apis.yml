@@ -132,6 +132,9 @@ apis:
   - type: Postman
     url: https://www.postman.com/smartcar/smartcar-api/documentation/fqmwehs/smartcar-api
 common:
+  - type: CapabilityMap
+    url: capabilities/smartcar-capability-edges.yml
+    name: Smartcar Business Capability Map
   - type: AgenticAccess
     url: agentic-access/smartcar-agentic-access.yml
   - type: TrustCenter

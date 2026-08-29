@@ -1,0 +1,57 @@
+slug: smartcar
+provider: Smartcar
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Automotive & Mobility
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 4
+edges:
+- tag: Charging
+  spec_file: smartcar-charging-api-openapi.yml
+  capability_id: BC-3460
+  capability_id_l1: BC-3460
+  capability_name: Vehicle Connected Services Management
+  confidence: 0.78
+  evidence: POST /vehicles/{id}/charge controlCharge "Start Or Stop Charging"; "Set Charge Limit"
+  reason: Remote read of vehicle charge state and remote charge commands over a vehicle-to-cloud platform
+    is connected-vehicle service operation; which sub-capability (connectivity platform vs data platform)
+    is ambiguous.
+- tag: Vehicle Data
+  spec_file: smartcar-vehicle-data-api-openapi.yml
+  capability_id: BC-3460.40
+  capability_id_l1: BC-3460
+  capability_name: Vehicle Data Platform Operations
+  confidence: 0.75
+  evidence: GET /vehicles/{id}/signals  Get Vehicle Signals; GET /vehicles/{id}/battery; GET /vehicles/{id}/odometer;
+    GET /vehicles/{id}/diagnostics/dtcs  Get Diagnostic Trouble Codes
+  reason: Standardised ingestion and exposure of vehicle telemetry signals (battery, location, odometer,
+    DTCs) with per-vehicle permission scopes — vehicle data platform operations (ingestion, sharing, consent)
+    for connected vehicles.
+- tag: Navigation
+  spec_file: smartcar-navigation-api-openapi.yml
+  capability_id: BC-3460
+  capability_id_l1: BC-3460
+  capability_name: Vehicle Connected Services Management
+  confidence: 0.72
+  evidence: POST /vehicles/{id}/commands/set-destination  setDestination  Set Navigation Destination
+  reason: A single cloud-to-vehicle remote command that pushes a navigation destination into a connected
+    car — this is connected vehicle service operation (BC-3460). No sub-capability in the list specifically
+    covers remote in-vehicle commands, so L2 is left unset.
+- tag: Security
+  spec_file: smartcar-security-api-openapi.yml
+  capability_id: BC-3460
+  capability_id_l1: BC-3460
+  capability_name: Vehicle Connected Services Management
+  confidence: 0.72
+  evidence: GET /vehicles/{id}/security  getLockStatus  Get Lock Status; POST /vehicles/{id}/security  controlSecurity  Lock
+    Or Unlock Doors
+  reason: Despite the tag 'Security', the operations are remote door lock/unlock commands and lock-status
+    reads on connected vehicles — connected vehicle services, NOT cybersecurity monitoring (so BC-3460.60
+    would be wrong). L1 only.
