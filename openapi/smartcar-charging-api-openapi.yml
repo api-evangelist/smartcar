@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: Smartcar Vehicles Charging API
   description: The Smartcar Vehicles API provides a standardized REST interface for accessing connected vehicle data and sending commands to vehicles across multiple OEMs through a single integration. Retrieve signals such as battery level, odometer, location, fuel, engine oil life, and lock status, or issue commands like lock/unlock doors, start/stop charging, set charge limits, and set navigation destinations. Authentication uses OAuth 2.0 with user-granted permissions per vehicle.
@@ -131,6 +131,22 @@ paths:
                 $ref: '#/components/schemas/CommandResult'
 components:
   schemas:
+    ChargeStatus:
+      type: object
+      properties:
+        isPluggedIn:
+          type: boolean
+          description: Whether the vehicle is currently plugged in
+        state:
+          type: string
+          enum:
+          - CHARGING
+          - FULLY_CHARGED
+          - NOT_CHARGING
+          description: Current charging state
+      required:
+      - isPluggedIn
+      - state
     ChargeLimit:
       type: object
       properties:
@@ -153,22 +169,6 @@ components:
         message:
           type: string
           description: Human-readable result message
-    ChargeStatus:
-      type: object
-      properties:
-        isPluggedIn:
-          type: boolean
-          description: Whether the vehicle is currently plugged in
-        state:
-          type: string
-          enum:
-          - CHARGING
-          - FULLY_CHARGED
-          - NOT_CHARGING
-          description: Current charging state
-      required:
-      - isPluggedIn
-      - state
   securitySchemes:
     BearerAuth:
       type: http

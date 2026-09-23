@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Smartcar Vehicles Charging Vehicle Data API
+  title: Smartcar Vehicles Vehicle Data API
   description: The Smartcar Vehicles API provides a standardized REST interface for accessing connected vehicle data and sending commands to vehicles across multiple OEMs through a single integration. Retrieve signals such as battery level, odometer, location, fuel, engine oil life, and lock status, or issue commands like lock/unlock doors, start/stop charging, set charge limits, and set navigation destinations. Authentication uses OAuth 2.0 with user-granted permissions per vehicle.
   version: 2.0.0
   termsOfService: https://smartcar.com/terms/
@@ -261,22 +261,6 @@ paths:
                       type: object
 components:
   schemas:
-    ChargeStatus:
-      type: object
-      properties:
-        isPluggedIn:
-          type: boolean
-          description: Whether the vehicle is currently plugged in
-        state:
-          type: string
-          enum:
-          - CHARGING
-          - FULLY_CHARGED
-          - NOT_CHARGING
-          description: Current charging state
-      required:
-      - isPluggedIn
-      - state
     Odometer:
       type: object
       properties:
@@ -285,18 +269,6 @@ components:
           description: Odometer reading in kilometers
       required:
       - distance
-    Location:
-      type: object
-      properties:
-        latitude:
-          type: number
-          description: GPS latitude coordinate
-        longitude:
-          type: number
-          description: GPS longitude coordinate
-      required:
-      - latitude
-      - longitude
     Vehicle:
       type: object
       properties:
@@ -315,46 +287,32 @@ components:
         vin:
           type: string
           description: Vehicle identification number
-    Battery:
+    Error:
       type: object
       properties:
-        percentRemaining:
-          type: number
-          minimum: 0
-          maximum: 1
-          description: Battery charge level as a decimal (0.0 to 1.0)
-        range:
-          type: number
-          description: Estimated remaining range in kilometers
-      required:
-      - percentRemaining
-      - range
-    EngineOil:
-      type: object
-      properties:
-        lifeRemaining:
-          type: number
-          minimum: 0
-          maximum: 1
-          description: Engine oil life remaining as a decimal
-      required:
-      - lifeRemaining
-    FuelTank:
-      type: object
-      properties:
-        percentRemaining:
-          type: number
-          minimum: 0
-          maximum: 1
-          description: Fuel level as a decimal
-        amountRemaining:
-          type: number
-          description: Fuel remaining in liters
-        range:
-          type: number
-          description: Estimated remaining range in kilometers
-      required:
-      - percentRemaining
+        type:
+          type: string
+          description: Error category
+        code:
+          type: string
+          description: Short error identifier
+        title:
+          type: string
+          description: Human-readable error title
+        detail:
+          type: string
+          description: Detailed error description
+        status:
+          type: integer
+          description: HTTP status code
+        resolution:
+          type: string
+          enum:
+          - RETRY_LATER
+          - REAUTHENTICATE
+          - CONTACT_SUPPORT
+        suggestedUserMessage:
+          type: string
     Signals:
       type: object
       properties:
@@ -382,32 +340,74 @@ components:
               timestamp:
                 type: string
                 format: date-time
-    Error:
+    Battery:
       type: object
       properties:
-        type:
-          type: string
-          description: Error category
-        code:
-          type: string
-          description: Short error identifier
-        title:
-          type: string
-          description: Human-readable error title
-        detail:
-          type: string
-          description: Detailed error description
-        status:
-          type: integer
-          description: HTTP status code
-        resolution:
+        percentRemaining:
+          type: number
+          minimum: 0
+          maximum: 1
+          description: Battery charge level as a decimal (0.0 to 1.0)
+        range:
+          type: number
+          description: Estimated remaining range in kilometers
+      required:
+      - percentRemaining
+      - range
+    ChargeStatus:
+      type: object
+      properties:
+        isPluggedIn:
+          type: boolean
+          description: Whether the vehicle is currently plugged in
+        state:
           type: string
           enum:
-          - RETRY_LATER
-          - REAUTHENTICATE
-          - CONTACT_SUPPORT
-        suggestedUserMessage:
-          type: string
+          - CHARGING
+          - FULLY_CHARGED
+          - NOT_CHARGING
+          description: Current charging state
+      required:
+      - isPluggedIn
+      - state
+    Location:
+      type: object
+      properties:
+        latitude:
+          type: number
+          description: GPS latitude coordinate
+        longitude:
+          type: number
+          description: GPS longitude coordinate
+      required:
+      - latitude
+      - longitude
+    FuelTank:
+      type: object
+      properties:
+        percentRemaining:
+          type: number
+          minimum: 0
+          maximum: 1
+          description: Fuel level as a decimal
+        amountRemaining:
+          type: number
+          description: Fuel remaining in liters
+        range:
+          type: number
+          description: Estimated remaining range in kilometers
+      required:
+      - percentRemaining
+    EngineOil:
+      type: object
+      properties:
+        lifeRemaining:
+          type: number
+          minimum: 0
+          maximum: 1
+          description: Engine oil life remaining as a decimal
+      required:
+      - lifeRemaining
   securitySchemes:
     BearerAuth:
       type: http
