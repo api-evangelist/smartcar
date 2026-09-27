@@ -261,6 +261,49 @@ paths:
                       type: object
 components:
   schemas:
+    Signals:
+      type: object
+      properties:
+        battery:
+          $ref: '#/components/schemas/Battery'
+        charge:
+          $ref: '#/components/schemas/ChargeStatus'
+        location:
+          $ref: '#/components/schemas/Location'
+        odometer:
+          $ref: '#/components/schemas/Odometer'
+        fuel:
+          $ref: '#/components/schemas/FuelTank'
+    Battery:
+      type: object
+      properties:
+        percentRemaining:
+          type: number
+          minimum: 0
+          maximum: 1
+          description: Battery charge level as a decimal (0.0 to 1.0)
+        range:
+          type: number
+          description: Estimated remaining range in kilometers
+      required:
+      - percentRemaining
+      - range
+    FuelTank:
+      type: object
+      properties:
+        percentRemaining:
+          type: number
+          minimum: 0
+          maximum: 1
+          description: Fuel level as a decimal
+        amountRemaining:
+          type: number
+          description: Fuel remaining in liters
+        range:
+          type: number
+          description: Estimated remaining range in kilometers
+      required:
+      - percentRemaining
     Odometer:
       type: object
       properties:
@@ -269,6 +312,44 @@ components:
           description: Odometer reading in kilometers
       required:
       - distance
+    Location:
+      type: object
+      properties:
+        latitude:
+          type: number
+          description: GPS latitude coordinate
+        longitude:
+          type: number
+          description: GPS longitude coordinate
+      required:
+      - latitude
+      - longitude
+    EngineOil:
+      type: object
+      properties:
+        lifeRemaining:
+          type: number
+          minimum: 0
+          maximum: 1
+          description: Engine oil life remaining as a decimal
+      required:
+      - lifeRemaining
+    ChargeStatus:
+      type: object
+      properties:
+        isPluggedIn:
+          type: boolean
+          description: Whether the vehicle is currently plugged in
+        state:
+          type: string
+          enum:
+          - CHARGING
+          - FULLY_CHARGED
+          - NOT_CHARGING
+          description: Current charging state
+      required:
+      - isPluggedIn
+      - state
     Vehicle:
       type: object
       properties:
@@ -287,6 +368,20 @@ components:
         vin:
           type: string
           description: Vehicle identification number
+    DiagnosticCodes:
+      type: object
+      properties:
+        activeCodes:
+          type: array
+          items:
+            type: object
+            properties:
+              code:
+                type: string
+                description: OBD-II DTC code (e.g., P0300)
+              timestamp:
+                type: string
+                format: date-time
     Error:
       type: object
       properties:
@@ -313,101 +408,6 @@ components:
           - CONTACT_SUPPORT
         suggestedUserMessage:
           type: string
-    Signals:
-      type: object
-      properties:
-        battery:
-          $ref: '#/components/schemas/Battery'
-        charge:
-          $ref: '#/components/schemas/ChargeStatus'
-        location:
-          $ref: '#/components/schemas/Location'
-        odometer:
-          $ref: '#/components/schemas/Odometer'
-        fuel:
-          $ref: '#/components/schemas/FuelTank'
-    DiagnosticCodes:
-      type: object
-      properties:
-        activeCodes:
-          type: array
-          items:
-            type: object
-            properties:
-              code:
-                type: string
-                description: OBD-II DTC code (e.g., P0300)
-              timestamp:
-                type: string
-                format: date-time
-    Battery:
-      type: object
-      properties:
-        percentRemaining:
-          type: number
-          minimum: 0
-          maximum: 1
-          description: Battery charge level as a decimal (0.0 to 1.0)
-        range:
-          type: number
-          description: Estimated remaining range in kilometers
-      required:
-      - percentRemaining
-      - range
-    ChargeStatus:
-      type: object
-      properties:
-        isPluggedIn:
-          type: boolean
-          description: Whether the vehicle is currently plugged in
-        state:
-          type: string
-          enum:
-          - CHARGING
-          - FULLY_CHARGED
-          - NOT_CHARGING
-          description: Current charging state
-      required:
-      - isPluggedIn
-      - state
-    Location:
-      type: object
-      properties:
-        latitude:
-          type: number
-          description: GPS latitude coordinate
-        longitude:
-          type: number
-          description: GPS longitude coordinate
-      required:
-      - latitude
-      - longitude
-    FuelTank:
-      type: object
-      properties:
-        percentRemaining:
-          type: number
-          minimum: 0
-          maximum: 1
-          description: Fuel level as a decimal
-        amountRemaining:
-          type: number
-          description: Fuel remaining in liters
-        range:
-          type: number
-          description: Estimated remaining range in kilometers
-      required:
-      - percentRemaining
-    EngineOil:
-      type: object
-      properties:
-        lifeRemaining:
-          type: number
-          minimum: 0
-          maximum: 1
-          description: Engine oil life remaining as a decimal
-      required:
-      - lifeRemaining
   securitySchemes:
     BearerAuth:
       type: http
