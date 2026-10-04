@@ -277,28 +277,6 @@ components:
           description: Estimated remaining range in kilometers
       required:
       - percentRemaining
-    Battery:
-      type: object
-      properties:
-        percentRemaining:
-          type: number
-          minimum: 0
-          maximum: 1
-          description: Battery charge level as a decimal (0.0 to 1.0)
-        range:
-          type: number
-          description: Estimated remaining range in kilometers
-      required:
-      - percentRemaining
-      - range
-    Odometer:
-      type: object
-      properties:
-        distance:
-          type: number
-          description: Odometer reading in kilometers
-      required:
-      - distance
     DiagnosticCodes:
       type: object
       properties:
@@ -313,16 +291,44 @@ components:
               timestamp:
                 type: string
                 format: date-time
-    EngineOil:
+    Location:
       type: object
       properties:
-        lifeRemaining:
+        latitude:
           type: number
-          minimum: 0
-          maximum: 1
-          description: Engine oil life remaining as a decimal
+          description: GPS latitude coordinate
+        longitude:
+          type: number
+          description: GPS longitude coordinate
       required:
-      - lifeRemaining
+      - latitude
+      - longitude
+    Error:
+      type: object
+      properties:
+        type:
+          type: string
+          description: Error category
+        code:
+          type: string
+          description: Short error identifier
+        title:
+          type: string
+          description: Human-readable error title
+        detail:
+          type: string
+          description: Detailed error description
+        status:
+          type: integer
+          description: HTTP status code
+        resolution:
+          type: string
+          enum:
+          - RETRY_LATER
+          - REAUTHENTICATE
+          - CONTACT_SUPPORT
+        suggestedUserMessage:
+          type: string
     Vehicle:
       type: object
       properties:
@@ -370,44 +376,38 @@ components:
           $ref: '#/components/schemas/Odometer'
         fuel:
           $ref: '#/components/schemas/FuelTank'
-    Location:
+    EngineOil:
       type: object
       properties:
-        latitude:
+        lifeRemaining:
           type: number
-          description: GPS latitude coordinate
-        longitude:
-          type: number
-          description: GPS longitude coordinate
+          minimum: 0
+          maximum: 1
+          description: Engine oil life remaining as a decimal
       required:
-      - latitude
-      - longitude
-    Error:
+      - lifeRemaining
+    Battery:
       type: object
       properties:
-        type:
-          type: string
-          description: Error category
-        code:
-          type: string
-          description: Short error identifier
-        title:
-          type: string
-          description: Human-readable error title
-        detail:
-          type: string
-          description: Detailed error description
-        status:
-          type: integer
-          description: HTTP status code
-        resolution:
-          type: string
-          enum:
-          - RETRY_LATER
-          - REAUTHENTICATE
-          - CONTACT_SUPPORT
-        suggestedUserMessage:
-          type: string
+        percentRemaining:
+          type: number
+          minimum: 0
+          maximum: 1
+          description: Battery charge level as a decimal (0.0 to 1.0)
+        range:
+          type: number
+          description: Estimated remaining range in kilometers
+      required:
+      - percentRemaining
+      - range
+    Odometer:
+      type: object
+      properties:
+        distance:
+          type: number
+          description: Odometer reading in kilometers
+      required:
+      - distance
   securitySchemes:
     BearerAuth:
       type: http

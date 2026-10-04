@@ -143,6 +143,16 @@ components:
         message:
           type: string
           description: Human-readable result message
+    ChargeLimit:
+      type: object
+      properties:
+        limit:
+          type: number
+          minimum: 0.5
+          maximum: 1.0
+          description: Maximum charge limit as a decimal
+      required:
+      - limit
     ChargeStatus:
       type: object
       properties:
@@ -159,16 +169,6 @@ components:
       required:
       - isPluggedIn
       - state
-    ChargeLimit:
-      type: object
-      properties:
-        limit:
-          type: number
-          minimum: 0.5
-          maximum: 1.0
-          description: Maximum charge limit as a decimal
-      required:
-      - limit
   securitySchemes:
     BearerAuth:
       type: http

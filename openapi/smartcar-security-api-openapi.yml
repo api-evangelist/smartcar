@@ -78,18 +78,6 @@ paths:
                 $ref: '#/components/schemas/CommandResult'
 components:
   schemas:
-    CommandResult:
-      type: object
-      properties:
-        status:
-          type: string
-          enum:
-          - success
-          - error
-          - pending
-        message:
-          type: string
-          description: Human-readable result message
     SecurityStatus:
       type: object
       properties:
@@ -109,6 +97,18 @@ components:
                 - LOCKED
                 - UNLOCKED
                 - UNKNOWN
+    CommandResult:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - success
+          - error
+          - pending
+        message:
+          type: string
+          description: Human-readable result message
   securitySchemes:
     BearerAuth:
       type: http
