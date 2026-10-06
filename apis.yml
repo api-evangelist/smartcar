@@ -34,7 +34,7 @@ accessModel:
   generated: '2026-09-03'
   method: derived
 created: '2026-03-16'
-modified: '2026-05-19'
+modified: '2026-10-06'
 specificationVersion: '0.23'
 tags:
   - Automotive
@@ -134,6 +134,8 @@ apis:
   - type: Postman
     url: https://www.postman.com/smartcar/smartcar-api/documentation/fqmwehs/smartcar-api
 common:
+  - url: https://smartcar.com/blog
+    type: Blog
   - type: CapabilityMap
     url: capabilities/smartcar-capability-edges.yml
     name: Smartcar Business Capability Map
