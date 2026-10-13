@@ -1,5 +1,29 @@
 generated: '2026-10-13'
 edges:
+- partner_name: Alfa Romeo, Chrysler, Citroen, DS, Dodge, Fiat, Jeep, Opel, Peugeot, RAM, Vauxhall
+  partner: stellantis
+  partner_match: brand-group
+  channel: provider-built
+  direction: provider-built
+  type: contract
+  relationship: system-coverage
+  evidence: https://compatibility.api.smartcar.com/v3/compatible-vehicles
+  detected_by: sweep-automotive.py
+  detected: '2026-10-13'
+  operations:
+  - Charge
+  - Climate
+  - Closure
+  - Diagnostics
+  - HVAC
+  - InternalCombustionEngine
+  - Location
+  - LowVoltageBattery
+  - Odometer
+  - Surveillance
+  - TractionBattery
+  - VehicleIdentification
+  - Wheel
 - partner_name: Audi
   partner: audi-connect
   partner_match: brand
@@ -100,6 +124,23 @@ edges:
   - Service
   - TractionBattery
   - VehicleIdentification
+- partner_name: Dacia, Renault
+  partner: renault-group
+  partner_match: brand-group
+  channel: provider-built
+  direction: provider-built
+  type: contract
+  relationship: system-coverage
+  evidence: https://compatibility.api.smartcar.com/v3/compatible-vehicles
+  detected_by: sweep-automotive.py
+  detected: '2026-10-13'
+  operations:
+  - Charge
+  - InternalCombustionEngine
+  - Location
+  - Odometer
+  - TractionBattery
+  - VehicleIdentification
 - partner_name: Ford, Lincoln
   partner: ford
   partner_match: brand
@@ -169,6 +210,51 @@ edges:
   - Transmission
   - VehicleIdentification
   - Wheel
+- partner_name: Jaguar, Land Rover
+  partner: jlr
+  partner_match: brand-group
+  channel: provider-built
+  direction: provider-built
+  type: contract
+  relationship: system-coverage
+  evidence: https://compatibility.api.smartcar.com/v3/compatible-vehicles
+  detected_by: sweep-automotive.py
+  detected: '2026-10-13'
+  operations:
+  - Charge
+  - Closure
+  - ConnectivitySoftware
+  - Diagnostics
+  - HVAC
+  - InternalCombustionEngine
+  - Location
+  - LowVoltageBattery
+  - Odometer
+  - TractionBattery
+  - VehicleIdentification
+  - Wheel
+- partner_name: Kia
+  partner: kia
+  partner_match: brand
+  channel: provider-built
+  direction: provider-built
+  type: contract
+  relationship: system-coverage
+  evidence: https://compatibility.api.smartcar.com/v3/compatible-vehicles
+  detected_by: sweep-automotive.py
+  detected: '2026-10-13'
+  operations:
+  - Charge
+  - Closure
+  - ConnectivityStatus
+  - Diagnostics
+  - HVAC
+  - InternalCombustionEngine
+  - Location
+  - LowVoltageBattery
+  - Odometer
+  - TractionBattery
+  - VehicleIdentification
 - partner_name: Lexus, Toyota
   partner: toyota
   partner_match: brand-group
@@ -186,6 +272,26 @@ edges:
   - InternalCombustionEngine
   - Location
   - Motion
+  - Odometer
+  - Service
+  - TractionBattery
+  - VehicleIdentification
+  - Wheel
+- partner_name: Mazda
+  partner: mazda
+  partner_match: brand
+  channel: provider-built
+  direction: provider-built
+  type: contract
+  relationship: system-coverage
+  evidence: https://compatibility.api.smartcar.com/v3/compatible-vehicles
+  detected_by: sweep-automotive.py
+  detected: '2026-10-13'
+  operations:
+  - Charge
+  - Closure
+  - InternalCombustionEngine
+  - Location
   - Odometer
   - Service
   - TractionBattery
