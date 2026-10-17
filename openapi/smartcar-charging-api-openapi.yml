@@ -131,18 +131,6 @@ paths:
                 $ref: '#/components/schemas/CommandResult'
 components:
   schemas:
-    CommandResult:
-      type: object
-      properties:
-        status:
-          type: string
-          enum:
-          - success
-          - error
-          - pending
-        message:
-          type: string
-          description: Human-readable result message
     ChargeLimit:
       type: object
       properties:
@@ -169,6 +157,18 @@ components:
       required:
       - isPluggedIn
       - state
+    CommandResult:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - success
+          - error
+          - pending
+        message:
+          type: string
+          description: Human-readable result message
   securitySchemes:
     BearerAuth:
       type: http

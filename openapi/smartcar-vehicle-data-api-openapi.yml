@@ -261,22 +261,41 @@ paths:
                       type: object
 components:
   schemas:
-    FuelTank:
+    Battery:
       type: object
       properties:
         percentRemaining:
           type: number
           minimum: 0
           maximum: 1
-          description: Fuel level as a decimal
-        amountRemaining:
-          type: number
-          description: Fuel remaining in liters
+          description: Battery charge level as a decimal (0.0 to 1.0)
         range:
           type: number
           description: Estimated remaining range in kilometers
       required:
       - percentRemaining
+      - range
+    Odometer:
+      type: object
+      properties:
+        distance:
+          type: number
+          description: Odometer reading in kilometers
+      required:
+      - distance
+    Signals:
+      type: object
+      properties:
+        battery:
+          $ref: '#/components/schemas/Battery'
+        charge:
+          $ref: '#/components/schemas/ChargeStatus'
+        location:
+          $ref: '#/components/schemas/Location'
+        odometer:
+          $ref: '#/components/schemas/Odometer'
+        fuel:
+          $ref: '#/components/schemas/FuelTank'
     DiagnosticCodes:
       type: object
       properties:
@@ -291,18 +310,6 @@ components:
               timestamp:
                 type: string
                 format: date-time
-    Location:
-      type: object
-      properties:
-        latitude:
-          type: number
-          description: GPS latitude coordinate
-        longitude:
-          type: number
-          description: GPS longitude coordinate
-      required:
-      - latitude
-      - longitude
     Error:
       type: object
       properties:
@@ -329,6 +336,18 @@ components:
           - CONTACT_SUPPORT
         suggestedUserMessage:
           type: string
+    Location:
+      type: object
+      properties:
+        latitude:
+          type: number
+          description: GPS latitude coordinate
+        longitude:
+          type: number
+          description: GPS longitude coordinate
+      required:
+      - latitude
+      - longitude
     Vehicle:
       type: object
       properties:
@@ -363,19 +382,22 @@ components:
       required:
       - isPluggedIn
       - state
-    Signals:
+    FuelTank:
       type: object
       properties:
-        battery:
-          $ref: '#/components/schemas/Battery'
-        charge:
-          $ref: '#/components/schemas/ChargeStatus'
-        location:
-          $ref: '#/components/schemas/Location'
-        odometer:
-          $ref: '#/components/schemas/Odometer'
-        fuel:
-          $ref: '#/components/schemas/FuelTank'
+        percentRemaining:
+          type: number
+          minimum: 0
+          maximum: 1
+          description: Fuel level as a decimal
+        amountRemaining:
+          type: number
+          description: Fuel remaining in liters
+        range:
+          type: number
+          description: Estimated remaining range in kilometers
+      required:
+      - percentRemaining
     EngineOil:
       type: object
       properties:
@@ -386,28 +408,6 @@ components:
           description: Engine oil life remaining as a decimal
       required:
       - lifeRemaining
-    Battery:
-      type: object
-      properties:
-        percentRemaining:
-          type: number
-          minimum: 0
-          maximum: 1
-          description: Battery charge level as a decimal (0.0 to 1.0)
-        range:
-          type: number
-          description: Estimated remaining range in kilometers
-      required:
-      - percentRemaining
-      - range
-    Odometer:
-      type: object
-      properties:
-        distance:
-          type: number
-          description: Odometer reading in kilometers
-      required:
-      - distance
   securitySchemes:
     BearerAuth:
       type: http

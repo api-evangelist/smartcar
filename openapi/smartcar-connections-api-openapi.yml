@@ -107,26 +107,6 @@ paths:
           description: User removed
 components:
   schemas:
-    Connection:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Unique connection identifier
-        vehicleId:
-          type: string
-          description: Associated vehicle identifier
-        userId:
-          type: string
-          description: User who authorized this connection
-        status:
-          type: string
-          enum:
-          - ACTIVE
-          - REVOKED
-        created:
-          type: string
-          format: date-time
     Error:
       type: object
       properties:
@@ -153,6 +133,26 @@ components:
           - CONTACT_SUPPORT
         suggestedUserMessage:
           type: string
+    Connection:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique connection identifier
+        vehicleId:
+          type: string
+          description: Associated vehicle identifier
+        userId:
+          type: string
+          description: User who authorized this connection
+        status:
+          type: string
+          enum:
+          - ACTIVE
+          - REVOKED
+        created:
+          type: string
+          format: date-time
   securitySchemes:
     BearerAuth:
       type: http
