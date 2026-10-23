@@ -134,6 +134,8 @@ apis:
   - type: Postman
     url: https://www.postman.com/smartcar/smartcar-api/documentation/fqmwehs/smartcar-api
 common:
+  - type: PostmanWorkspace
+    url: https://www.postman.com/kinlaneapi/smartcar/overview
   - type: Plans
     url: plans/smartcar-plans-pricing.yml
   - type: RateLimits
