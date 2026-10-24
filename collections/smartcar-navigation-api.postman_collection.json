@@ -1,144 +1,170 @@
 {
+  "info": {
+    "_postman_id": "432fd37e-a546-4117-bf61-67b4e5a3bde6",
+    "name": "Smartcar Vehicles Navigation API",
+    "description": "The Smartcar Vehicles API provides a standardized REST interface for accessing connected vehicle data and sending commands to vehicles across multiple OEMs through a single integration. Retrieve signals such as battery level, odometer, location, fuel, engine oil life, and lock status, or issue commands like lock/unlock doors, start/stop charging, set charge limits, and set navigation destinations. Authentication uses OAuth 2.0 with user-granted permissions per vehicle.\n\nContact Support:\n Name: Smartcar Support\n Email: support@smartcar.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T02:08:38.000Z",
+    "updatedAt": "2026-10-22T02:08:39.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-432fd37e-a546-4117-bf61-67b4e5a3bde6"
+  },
   "item": [
     {
-      "id": "9801acc5-dde6-4a19-8431-ed08299b058c",
-      "name": "Navigation",
-      "description": {
-        "content": "Vehicle navigation and destination setting",
-        "type": "text/plain"
-      },
+      "name": "vehicles",
       "item": [
         {
-          "id": "c150eab4-bd77-4a44-b8f4-79b62bcccd5d",
-          "name": "Set Navigation Destination",
-          "request": {
-            "name": "Set Navigation Destination",
-            "description": {
-              "content": "Sets a navigation destination for the vehicle. Requires the control_navigation permission.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "vehicles",
-                ":id",
-                "commands",
-                "set-destination"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "id",
-                  "description": "(Required) "
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"latitude\": \"<number>\",\n  \"longitude\": \"<number>\",\n  \"address\": \"<string>\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
+          "name": "{id}",
+          "item": [
             {
-              "id": "20700d74-6269-4592-b67e-d2cb5671a61c",
-              "name": "Command result",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "vehicles",
-                    ":id",
-                    "commands",
-                    "set-destination"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "id",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"latitude\": \"<number>\",\n  \"longitude\": \"<number>\",\n  \"address\": \"<string>\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
+              "name": "commands",
+              "item": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "name": "set-destination",
+                  "item": [
+                    {
+                      "name": "Set Navigation Destination",
+                      "id": "bda1c8d5-d2f6-4641-8711-02143c9fd83b",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"latitude\": \"<number>\",\n  \"longitude\": \"<number>\",\n  \"address\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/vehicles/:id/commands/set-destination",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "vehicles",
+                            ":id",
+                            "commands",
+                            "set-destination"
+                          ],
+                          "variable": [
+                            {
+                              "id": "2d7944e5-742f-49df-8126-624cb8f67f2b",
+                              "key": "id",
+                              "value": "<string>",
+                              "description": "(Required) "
+                            }
+                          ]
+                        },
+                        "description": "Sets a navigation destination for the vehicle. Requires the control_navigation permission."
+                      },
+                      "response": [
+                        {
+                          "id": "3e50d811-ff0e-4264-a3df-e75b3a31d35f",
+                          "name": "Command result",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"latitude\": \"<number>\",\n  \"longitude\": \"<number>\",\n  \"address\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/vehicles/:id/commands/set-destination",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "vehicles",
+                                ":id",
+                                "commands",
+                                "set-destination"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"status\": \"pending\",\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-10-22T02:08:39.000Z",
+                          "updatedAt": "2026-10-22T02:08:39.000Z",
+                          "uid": "35240-3e50d811-ff0e-4264-a3df-e75b3a31d35f"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T02:08:39.000Z",
+                      "updatedAt": "2026-10-22T02:08:39.000Z",
+                      "uid": "35240-bda1c8d5-d2f6-4641-8711-02143c9fd83b"
+                    }
+                  ],
+                  "id": "e85fee6a-c8b8-427d-a762-0ef61bd2484a",
+                  "createdAt": "2026-10-22T02:08:39.000Z",
+                  "updatedAt": "2026-10-22T02:08:39.000Z",
+                  "uid": "35240-e85fee6a-c8b8-427d-a762-0ef61bd2484a"
                 }
               ],
-              "body": "{\n  \"status\": \"success\",\n  \"message\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "id": "fb125e16-913b-46d2-9755-73ea29bbaa4b",
+              "createdAt": "2026-10-22T02:08:39.000Z",
+              "updatedAt": "2026-10-22T02:08:39.000Z",
+              "uid": "35240-fb125e16-913b-46d2-9755-73ea29bbaa4b"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "a929c003-0c92-4317-83e2-1da3826c0745",
+          "createdAt": "2026-10-22T02:08:39.000Z",
+          "updatedAt": "2026-10-22T02:08:39.000Z",
+          "uid": "35240-a929c003-0c92-4317-83e2-1da3826c0745"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "type": "string",
-      "value": "https://vehicle.api.smartcar.com/v2.0",
-      "key": "baseUrl"
+      "id": "906f9fea-f5d7-423d-bdb5-4620395138be",
+      "createdAt": "2026-10-22T02:08:39.000Z",
+      "updatedAt": "2026-10-22T02:08:39.000Z",
+      "uid": "35240-906f9fea-f5d7-423d-bdb5-4620395138be"
     }
   ],
   "auth": {
@@ -146,17 +172,15 @@
     "bearer": [
       {
         "key": "token",
-        "value": "{{bearerToken}}"
+        "value": "{{bearerToken}}",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "ccd2e011-25a9-4f0e-aefb-675a7946a709",
-    "name": "Smartcar Vehicles Charging Navigation API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "The Smartcar Vehicles API provides a standardized REST interface for accessing connected vehicle data and sending commands to vehicles across multiple OEMs through a single integration. Retrieve signals such as battery level, odometer, location, fuel, engine oil life, and lock status, or issue commands like lock/unlock doors, start/stop charging, set charge limits, and set navigation destinations. Authentication uses OAuth 2.0 with user-granted permissions per vehicle.\n\nContact Support:\n Name: Smartcar Support\n Email: support@smartcar.com",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://vehicle.api.smartcar.com/v2.0"
     }
-  }
+  ]
 }

@@ -1,1175 +1,1188 @@
 {
+  "info": {
+    "_postman_id": "e6942429-0652-439e-bb82-aee1dff9e4b3",
+    "name": "Smartcar Vehicles Vehicle Data API",
+    "description": "The Smartcar Vehicles API provides a standardized REST interface for accessing connected vehicle data and sending commands to vehicles across multiple OEMs through a single integration. Retrieve signals such as battery level, odometer, location, fuel, engine oil life, and lock status, or issue commands like lock/unlock doors, start/stop charging, set charge limits, and set navigation destinations. Authentication uses OAuth 2.0 with user-granted permissions per vehicle.\n\nContact Support:\n Name: Smartcar Support\n Email: support@smartcar.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T02:08:50.000Z",
+    "updatedAt": "2026-10-22T02:08:50.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-e6942429-0652-439e-bb82-aee1dff9e4b3"
+  },
   "item": [
     {
-      "id": "af3620a3-7b0c-447d-81ca-bb62cae825da",
-      "name": "Vehicle Data",
-      "description": {
-        "content": "Read vehicle signals and status data",
-        "type": "text/plain"
-      },
+      "name": "vehicles",
       "item": [
         {
-          "id": "9f2654fe-22d8-46e2-8090-eb8150622ad9",
-          "name": "Get Vehicle",
-          "request": {
-            "name": "Get Vehicle",
-            "description": {
-              "content": "Retrieves attributes and metadata for a specific vehicle.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "vehicles",
-                ":id"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "id",
-                  "description": "(Required) Vehicle ID"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
+          "name": "{id}",
+          "item": [
             {
-              "id": "35a3f447-ba17-4440-84cd-243578b0a0c3",
-              "name": "Vehicle attributes",
-              "originalRequest": {
+              "name": "signals",
+              "item": [
+                {
+                  "name": "Get Vehicle Signals",
+                  "id": "dd39e8bc-05f4-40e0-9f92-ebb44119d575",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/vehicles/:id/signals",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "vehicles",
+                        ":id",
+                        "signals"
+                      ],
+                      "variable": [
+                        {
+                          "id": "548ab8a4-6e9d-4f47-8912-a21e7f058345",
+                          "key": "id",
+                          "value": "<string>",
+                          "description": "(Required) Vehicle ID"
+                        }
+                      ]
+                    },
+                    "description": "Reads all available signals (telemetry data) for a vehicle."
+                  },
+                  "response": [
+                    {
+                      "id": "282ba248-cec8-4479-bfcc-81c39bce6060",
+                      "name": "Vehicle signals",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/vehicles/:id/signals",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "vehicles",
+                            ":id",
+                            "signals"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"battery\": {\n    \"percentRemaining\": \"<number>\",\n    \"range\": \"<number>\"\n  },\n  \"charge\": {\n    \"isPluggedIn\": \"<boolean>\",\n    \"state\": \"FULLY_CHARGED\"\n  },\n  \"location\": {\n    \"latitude\": \"<number>\",\n    \"longitude\": \"<number>\"\n  },\n  \"odometer\": {\n    \"distance\": \"<number>\"\n  },\n  \"fuel\": {\n    \"percentRemaining\": \"<number>\",\n    \"amountRemaining\": \"<number>\",\n    \"range\": \"<number>\"\n  }\n}",
+                      "createdAt": "2026-10-22T02:08:51.000Z",
+                      "updatedAt": "2026-10-22T02:08:51.000Z",
+                      "uid": "35240-282ba248-cec8-4479-bfcc-81c39bce6060"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T02:08:51.000Z",
+                  "updatedAt": "2026-10-22T02:08:51.000Z",
+                  "uid": "35240-dd39e8bc-05f4-40e0-9f92-ebb44119d575"
+                }
+              ],
+              "id": "9b43c217-1516-4a2a-bd5b-4d1972a073db",
+              "createdAt": "2026-10-22T02:08:51.000Z",
+              "updatedAt": "2026-10-22T02:08:51.000Z",
+              "uid": "35240-9b43c217-1516-4a2a-bd5b-4d1972a073db"
+            },
+            {
+              "name": "battery",
+              "item": [
+                {
+                  "name": "Get Battery Level",
+                  "id": "ec0e5f22-b156-43db-9a46-55bff1e845df",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/vehicles/:id/battery",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "vehicles",
+                        ":id",
+                        "battery"
+                      ],
+                      "variable": [
+                        {
+                          "id": "1aaf611a-b10d-40ed-b261-75baf02f17d9",
+                          "key": "id",
+                          "value": "<string>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    },
+                    "description": "Retrieves the current battery level and estimated range for an electric or hybrid vehicle. Requires the read_battery permission."
+                  },
+                  "response": [
+                    {
+                      "id": "6aeed494-3e19-4d4f-9f5e-9e192f422848",
+                      "name": "Battery status",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/vehicles/:id/battery",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "vehicles",
+                            ":id",
+                            "battery"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"percentRemaining\": \"<number>\",\n  \"range\": \"<number>\"\n}",
+                      "createdAt": "2026-10-22T02:08:51.000Z",
+                      "updatedAt": "2026-10-22T02:08:51.000Z",
+                      "uid": "35240-6aeed494-3e19-4d4f-9f5e-9e192f422848"
+                    },
+                    {
+                      "id": "de005c41-0d39-432d-bed6-99584a1ad056",
+                      "name": "Vehicle state conflict",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/vehicles/:id/battery",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "vehicles",
+                            ":id",
+                            "battery"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Conflict",
+                      "code": 409,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"type\": \"<string>\",\n  \"code\": \"<string>\",\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"resolution\": \"CONTACT_SUPPORT\",\n  \"suggestedUserMessage\": \"<string>\"\n}",
+                      "createdAt": "2026-10-22T02:08:51.000Z",
+                      "updatedAt": "2026-10-22T02:08:51.000Z",
+                      "uid": "35240-de005c41-0d39-432d-bed6-99584a1ad056"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T02:08:51.000Z",
+                  "updatedAt": "2026-10-22T02:08:51.000Z",
+                  "uid": "35240-ec0e5f22-b156-43db-9a46-55bff1e845df"
+                }
+              ],
+              "id": "30f53c11-3c3e-4bb4-92fa-1f4cc66c3355",
+              "createdAt": "2026-10-22T02:08:51.000Z",
+              "updatedAt": "2026-10-22T02:08:51.000Z",
+              "uid": "35240-30f53c11-3c3e-4bb4-92fa-1f4cc66c3355"
+            },
+            {
+              "name": "location",
+              "item": [
+                {
+                  "name": "Get Location",
+                  "id": "ad6eb060-2b15-4f87-b686-3a94beb346b8",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/vehicles/:id/location",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "vehicles",
+                        ":id",
+                        "location"
+                      ],
+                      "variable": [
+                        {
+                          "id": "bedd5f18-62f3-41f2-9b6d-0fb5a393b851",
+                          "key": "id",
+                          "value": "<string>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    },
+                    "description": "Retrieves the current GPS coordinates of the vehicle. Requires the read_location permission."
+                  },
+                  "response": [
+                    {
+                      "id": "4af76f0f-3868-4973-8332-6a34a8e8fbd2",
+                      "name": "Vehicle location",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/vehicles/:id/location",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "vehicles",
+                            ":id",
+                            "location"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"latitude\": \"<number>\",\n  \"longitude\": \"<number>\"\n}",
+                      "createdAt": "2026-10-22T02:08:51.000Z",
+                      "updatedAt": "2026-10-22T02:08:51.000Z",
+                      "uid": "35240-4af76f0f-3868-4973-8332-6a34a8e8fbd2"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T02:08:51.000Z",
+                  "updatedAt": "2026-10-22T02:08:51.000Z",
+                  "uid": "35240-ad6eb060-2b15-4f87-b686-3a94beb346b8"
+                }
+              ],
+              "id": "b969844d-fbd8-4e0c-9834-a6ac8182eb35",
+              "createdAt": "2026-10-22T02:08:51.000Z",
+              "updatedAt": "2026-10-22T02:08:51.000Z",
+              "uid": "35240-b969844d-fbd8-4e0c-9834-a6ac8182eb35"
+            },
+            {
+              "name": "odometer",
+              "item": [
+                {
+                  "name": "Get Odometer",
+                  "id": "e742106b-9284-445f-bb8a-ed3c3fabe062",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/vehicles/:id/odometer",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "vehicles",
+                        ":id",
+                        "odometer"
+                      ],
+                      "variable": [
+                        {
+                          "id": "558992b3-1c24-4ad2-a99e-8e7df6afee14",
+                          "key": "id",
+                          "value": "<string>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    },
+                    "description": "Retrieves the vehicle's current odometer reading. Requires the read_odometer permission."
+                  },
+                  "response": [
+                    {
+                      "id": "ea031367-49d4-4820-a8f4-7e2402a910da",
+                      "name": "Odometer reading",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/vehicles/:id/odometer",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "vehicles",
+                            ":id",
+                            "odometer"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"distance\": \"<number>\"\n}",
+                      "createdAt": "2026-10-22T02:08:51.000Z",
+                      "updatedAt": "2026-10-22T02:08:51.000Z",
+                      "uid": "35240-ea031367-49d4-4820-a8f4-7e2402a910da"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T02:08:51.000Z",
+                  "updatedAt": "2026-10-22T02:08:51.000Z",
+                  "uid": "35240-e742106b-9284-445f-bb8a-ed3c3fabe062"
+                }
+              ],
+              "id": "1aa5b9f3-404d-4b38-a5bd-f9852e018fd3",
+              "createdAt": "2026-10-22T02:08:51.000Z",
+              "updatedAt": "2026-10-22T02:08:51.000Z",
+              "uid": "35240-1aa5b9f3-404d-4b38-a5bd-f9852e018fd3"
+            },
+            {
+              "name": "fuel",
+              "item": [
+                {
+                  "name": "Get Fuel Tank",
+                  "id": "4f70bf83-c689-4e65-b59b-1cbe5b6e9683",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/vehicles/:id/fuel",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "vehicles",
+                        ":id",
+                        "fuel"
+                      ],
+                      "variable": [
+                        {
+                          "id": "4ca0b2b5-964d-49da-887e-806c67d5d51c",
+                          "key": "id",
+                          "value": "<string>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    },
+                    "description": "Retrieves fuel tank status including percentage remaining, amount remaining, and estimated range. Requires the read_fuel permission."
+                  },
+                  "response": [
+                    {
+                      "id": "0e80956f-b13d-4504-af14-01b09daecb4f",
+                      "name": "Fuel tank status",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/vehicles/:id/fuel",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "vehicles",
+                            ":id",
+                            "fuel"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"percentRemaining\": \"<number>\",\n  \"amountRemaining\": \"<number>\",\n  \"range\": \"<number>\"\n}",
+                      "createdAt": "2026-10-22T02:08:51.000Z",
+                      "updatedAt": "2026-10-22T02:08:51.000Z",
+                      "uid": "35240-0e80956f-b13d-4504-af14-01b09daecb4f"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T02:08:51.000Z",
+                  "updatedAt": "2026-10-22T02:08:51.000Z",
+                  "uid": "35240-4f70bf83-c689-4e65-b59b-1cbe5b6e9683"
+                }
+              ],
+              "id": "95492214-b150-424a-82a6-00065771710a",
+              "createdAt": "2026-10-22T02:08:51.000Z",
+              "updatedAt": "2026-10-22T02:08:51.000Z",
+              "uid": "35240-95492214-b150-424a-82a6-00065771710a"
+            },
+            {
+              "name": "engine",
+              "item": [
+                {
+                  "name": "oil",
+                  "item": [
+                    {
+                      "name": "Get Engine Oil Life",
+                      "id": "d28d640e-93e3-48be-980a-7d9720951087",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/vehicles/:id/engine/oil",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "vehicles",
+                            ":id",
+                            "engine",
+                            "oil"
+                          ],
+                          "variable": [
+                            {
+                              "id": "cf793fa5-81f4-4cf6-826a-0d721f41d6e0",
+                              "key": "id",
+                              "value": "<string>",
+                              "description": "(Required) "
+                            }
+                          ]
+                        },
+                        "description": "Retrieves the remaining engine oil life as a percentage. Requires the read_engine_oil permission."
+                      },
+                      "response": [
+                        {
+                          "id": "a283daee-90aa-4087-b46c-703157f053e4",
+                          "name": "Engine oil life",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/vehicles/:id/engine/oil",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "vehicles",
+                                ":id",
+                                "engine",
+                                "oil"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"lifeRemaining\": \"<number>\"\n}",
+                          "createdAt": "2026-10-22T02:08:51.000Z",
+                          "updatedAt": "2026-10-22T02:08:51.000Z",
+                          "uid": "35240-a283daee-90aa-4087-b46c-703157f053e4"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T02:08:51.000Z",
+                      "updatedAt": "2026-10-22T02:08:51.000Z",
+                      "uid": "35240-d28d640e-93e3-48be-980a-7d9720951087"
+                    }
+                  ],
+                  "id": "c56f8ed8-ee49-4bed-9573-71627c89f373",
+                  "createdAt": "2026-10-22T02:08:51.000Z",
+                  "updatedAt": "2026-10-22T02:08:51.000Z",
+                  "uid": "35240-c56f8ed8-ee49-4bed-9573-71627c89f373"
+                }
+              ],
+              "id": "6d301ec2-5f59-47e8-8f65-0bea89caf257",
+              "createdAt": "2026-10-22T02:08:51.000Z",
+              "updatedAt": "2026-10-22T02:08:51.000Z",
+              "uid": "35240-6d301ec2-5f59-47e8-8f65-0bea89caf257"
+            },
+            {
+              "name": "diagnostics",
+              "item": [
+                {
+                  "name": "dtcs",
+                  "item": [
+                    {
+                      "name": "Get Diagnostic Trouble Codes",
+                      "id": "a74f9969-0379-4aee-8107-71c0dc8aae3b",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/vehicles/:id/diagnostics/dtcs",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "vehicles",
+                            ":id",
+                            "diagnostics",
+                            "dtcs"
+                          ],
+                          "variable": [
+                            {
+                              "id": "8914c89c-36c8-434d-8016-fbcf1f8fba9a",
+                              "key": "id",
+                              "value": "<string>",
+                              "description": "(Required) "
+                            }
+                          ]
+                        },
+                        "description": "Retrieves active diagnostic trouble codes (DTCs) from the vehicle's OBD-II system. Requires the read_diagnostics permission."
+                      },
+                      "response": [
+                        {
+                          "id": "70f63140-8384-4371-9d38-a34722df260a",
+                          "name": "Diagnostic trouble codes",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/vehicles/:id/diagnostics/dtcs",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "vehicles",
+                                ":id",
+                                "diagnostics",
+                                "dtcs"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"activeCodes\": [\n    {\n      \"code\": \"<string>\",\n      \"timestamp\": \"<dateTime>\"\n    },\n    {\n      \"code\": \"<string>\",\n      \"timestamp\": \"<dateTime>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-10-22T02:08:51.000Z",
+                          "updatedAt": "2026-10-22T02:08:51.000Z",
+                          "uid": "35240-70f63140-8384-4371-9d38-a34722df260a"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T02:08:51.000Z",
+                      "updatedAt": "2026-10-22T02:08:51.000Z",
+                      "uid": "35240-a74f9969-0379-4aee-8107-71c0dc8aae3b"
+                    }
+                  ],
+                  "id": "f06f1958-84bf-4ae6-af7f-1e881da397fc",
+                  "createdAt": "2026-10-22T02:08:51.000Z",
+                  "updatedAt": "2026-10-22T02:08:51.000Z",
+                  "uid": "35240-f06f1958-84bf-4ae6-af7f-1e881da397fc"
+                }
+              ],
+              "id": "6a941804-7f5e-4c95-9afa-769140ef586b",
+              "createdAt": "2026-10-22T02:08:51.000Z",
+              "updatedAt": "2026-10-22T02:08:51.000Z",
+              "uid": "35240-6a941804-7f5e-4c95-9afa-769140ef586b"
+            },
+            {
+              "name": "permissions",
+              "item": [
+                {
+                  "name": "Get Vehicle Permissions",
+                  "id": "90cf1064-8ac5-4df7-9ffe-61a11e2706b1",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/vehicles/:id/permissions",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "vehicles",
+                        ":id",
+                        "permissions"
+                      ],
+                      "variable": [
+                        {
+                          "id": "cddaaa6d-24a1-413d-8ecb-258ec1cee110",
+                          "key": "id",
+                          "value": "<string>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    },
+                    "description": "Lists all permissions granted for the vehicle."
+                  },
+                  "response": [
+                    {
+                      "id": "33263f71-b579-402e-9dec-b62b3bd5b6a9",
+                      "name": "Granted permissions",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/vehicles/:id/permissions",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "vehicles",
+                            ":id",
+                            "permissions"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"permissions\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                      "createdAt": "2026-10-22T02:08:51.000Z",
+                      "updatedAt": "2026-10-22T02:08:51.000Z",
+                      "uid": "35240-33263f71-b579-402e-9dec-b62b3bd5b6a9"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T02:08:51.000Z",
+                  "updatedAt": "2026-10-22T02:08:51.000Z",
+                  "uid": "35240-90cf1064-8ac5-4df7-9ffe-61a11e2706b1"
+                }
+              ],
+              "id": "553f33f9-e411-4703-ab1f-3f66d1b5e2fa",
+              "createdAt": "2026-10-22T02:08:51.000Z",
+              "updatedAt": "2026-10-22T02:08:51.000Z",
+              "uid": "35240-553f33f9-e411-4703-ab1f-3f66d1b5e2fa"
+            },
+            {
+              "name": "batch",
+              "item": [
+                {
+                  "name": "Batch Vehicle Data Requests",
+                  "id": "3445abb8-0d3a-455a-9f81-ed8861a8243e",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"requests\": [\n    {\n      \"path\": \"<string>\"\n    },\n    {\n      \"path\": \"<string>\"\n    }\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/vehicles/:id/batch",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "vehicles",
+                        ":id",
+                        "batch"
+                      ],
+                      "variable": [
+                        {
+                          "id": "6876690f-fbd9-4de7-be04-7593bd94c57d",
+                          "key": "id",
+                          "value": "<string>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    },
+                    "description": "Sends multiple data requests in a single API call and returns all responses together, reducing round-trips."
+                  },
+                  "response": [
+                    {
+                      "id": "c0707e21-6f30-4ab0-9719-0e0b522a5a58",
+                      "name": "Batch response",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"requests\": [\n    {\n      \"path\": \"<string>\"\n    },\n    {\n      \"path\": \"<string>\"\n    }\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/vehicles/:id/batch",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "vehicles",
+                            ":id",
+                            "batch"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{}",
+                      "createdAt": "2026-10-22T02:08:51.000Z",
+                      "updatedAt": "2026-10-22T02:08:51.000Z",
+                      "uid": "35240-c0707e21-6f30-4ab0-9719-0e0b522a5a58"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T02:08:51.000Z",
+                  "updatedAt": "2026-10-22T02:08:51.000Z",
+                  "uid": "35240-3445abb8-0d3a-455a-9f81-ed8861a8243e"
+                }
+              ],
+              "id": "d722554d-dd8b-43ea-a8c4-90d1024ec1df",
+              "createdAt": "2026-10-22T02:08:51.000Z",
+              "updatedAt": "2026-10-22T02:08:51.000Z",
+              "uid": "35240-d722554d-dd8b-43ea-a8c4-90d1024ec1df"
+            },
+            {
+              "name": "Get Vehicle",
+              "id": "348dda5b-8098-4419-b2c9-1b1bfa1731fc",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
                 "url": {
+                  "raw": "{{baseUrl}}/vehicles/:id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "vehicles",
                     ":id"
                   ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
                   "variable": [
                     {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
+                      "id": "505e52e0-f772-4153-a449-cea6ae2ee8e0",
                       "key": "id",
+                      "value": "<string>",
                       "description": "(Required) Vehicle ID"
                     }
                   ]
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
+                "description": "Retrieves attributes and metadata for a specific vehicle."
+              },
+              "response": [
+                {
+                  "id": "39a68c85-3256-4073-a3cb-b22cfc583a18",
+                  "name": "Vehicle attributes",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/vehicles/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "vehicles",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
                   },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"id\": \"string\",\n  \"make\": \"string\",\n  \"model\": \"string\",\n  \"year\": 9189,\n  \"vin\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "9b8e5a55-6907-4999-b521-5cdf013dba67",
-              "name": "Unauthorized",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "vehicles",
-                    ":id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
                     {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "id",
-                      "description": "(Required) Vehicle ID"
+                      "key": "Content-Type",
+                      "value": "application/json"
                     }
-                  ]
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"make\": \"<string>\",\n  \"model\": \"<string>\",\n  \"year\": \"<integer>\",\n  \"vin\": \"<string>\"\n}",
+                  "createdAt": "2026-10-22T02:08:51.000Z",
+                  "updatedAt": "2026-10-22T02:08:51.000Z",
+                  "uid": "35240-39a68c85-3256-4073-a3cb-b22cfc583a18"
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
                 {
-                  "key": "Content-Type",
-                  "value": "text/plain"
+                  "id": "16c9e7f4-0a46-43f8-8039-8a4075b81905",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/vehicles/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "vehicles",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T02:08:51.000Z",
+                  "updatedAt": "2026-10-22T02:08:51.000Z",
+                  "uid": "35240-16c9e7f4-0a46-43f8-8039-8a4075b81905"
+                },
+                {
+                  "id": "7d144d4d-87fc-4228-96e7-a2e3a689e2dd",
+                  "name": "Vehicle not found",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/vehicles/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "vehicles",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T02:08:51.000Z",
+                  "updatedAt": "2026-10-22T02:08:51.000Z",
+                  "uid": "35240-7d144d4d-87fc-4228-96e7-a2e3a689e2dd"
                 }
               ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "24f5071f-e313-471a-893a-82ea58d3603f",
-              "name": "Vehicle not found",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "vehicles",
-                    ":id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "id",
-                      "description": "(Required) Vehicle ID"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
+              "createdAt": "2026-10-22T02:08:51.000Z",
+              "updatedAt": "2026-10-22T02:08:51.000Z",
+              "uid": "35240-348dda5b-8098-4419-b2c9-1b1bfa1731fc"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "cdede728-e54a-489a-932e-c78d52ea60ca",
-          "name": "Get Vehicle Signals",
-          "request": {
-            "name": "Get Vehicle Signals",
-            "description": {
-              "content": "Reads all available signals (telemetry data) for a vehicle.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "vehicles",
-                ":id",
-                "signals"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "id",
-                  "description": "(Required) Vehicle ID"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "626eb429-1d7d-4493-9408-715201b2ae69",
-              "name": "Vehicle signals",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "vehicles",
-                    ":id",
-                    "signals"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "id",
-                      "description": "(Required) Vehicle ID"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"battery\": {\n    \"percentRemaining\": 0.2223579921351181,\n    \"range\": 9164.297916590707\n  },\n  \"charge\": {\n    \"isPluggedIn\": true,\n    \"state\": \"FULLY_CHARGED\"\n  },\n  \"location\": {\n    \"latitude\": 5237.104113719436,\n    \"longitude\": 8993.206296819573\n  },\n  \"odometer\": {\n    \"distance\": 205.96608160612706\n  },\n  \"fuel\": {\n    \"percentRemaining\": 0.9446267447126576,\n    \"amountRemaining\": 6945.775247693141,\n    \"range\": 6482.426254922316\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "e47651a2-cd52-414d-ad9e-5bccde0ca97a",
-          "name": "Get Battery Level",
-          "request": {
-            "name": "Get Battery Level",
-            "description": {
-              "content": "Retrieves the current battery level and estimated range for an electric or hybrid vehicle. Requires the read_battery permission.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "vehicles",
-                ":id",
-                "battery"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "id",
-                  "description": "(Required) "
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "06e59dc1-eb75-40ab-9a9b-bb330a543036",
-              "name": "Battery status",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "vehicles",
-                    ":id",
-                    "battery"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "id",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"percentRemaining\": 0.02571186817633775,\n  \"range\": 2194.9961629146073\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "869ab44d-a5b2-41c3-9541-db8d82feaf86",
-              "name": "Vehicle state conflict",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "vehicles",
-                    ":id",
-                    "battery"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "id",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Conflict",
-              "code": 409,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"type\": \"string\",\n  \"code\": \"string\",\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"status\": 2809,\n  \"resolution\": \"RETRY_LATER\",\n  \"suggestedUserMessage\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "2adc4997-8a4e-4df3-b21d-88d81a24d751",
-          "name": "Get Location",
-          "request": {
-            "name": "Get Location",
-            "description": {
-              "content": "Retrieves the current GPS coordinates of the vehicle. Requires the read_location permission.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "vehicles",
-                ":id",
-                "location"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "id",
-                  "description": "(Required) "
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "af9e465a-cd8e-4d93-8504-8133a3fe43fb",
-              "name": "Vehicle location",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "vehicles",
-                    ":id",
-                    "location"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "id",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"latitude\": 7387.111318921067,\n  \"longitude\": 4716.069543698152\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "1371e3cd-a0b7-485d-a878-9e7e9634fc2b",
-          "name": "Get Odometer",
-          "request": {
-            "name": "Get Odometer",
-            "description": {
-              "content": "Retrieves the vehicle's current odometer reading. Requires the read_odometer permission.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "vehicles",
-                ":id",
-                "odometer"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "id",
-                  "description": "(Required) "
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "c8c73f83-c815-4f0f-860c-858ba8eb591e",
-              "name": "Odometer reading",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "vehicles",
-                    ":id",
-                    "odometer"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "id",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"distance\": 7082.775703464072\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "8901184b-20c2-4374-9ecb-952ccc366814",
-          "name": "Get Fuel Tank",
-          "request": {
-            "name": "Get Fuel Tank",
-            "description": {
-              "content": "Retrieves fuel tank status including percentage remaining, amount remaining, and estimated range. Requires the read_fuel permission.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "vehicles",
-                ":id",
-                "fuel"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "id",
-                  "description": "(Required) "
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "209fc6ce-3b37-4e3c-a548-3136abc81a00",
-              "name": "Fuel tank status",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "vehicles",
-                    ":id",
-                    "fuel"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "id",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"percentRemaining\": 0.004827392477624315,\n  \"amountRemaining\": 3574.681012773342,\n  \"range\": 9109.20701774843\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "975e8cdb-88d7-4442-8f6d-2ec2bc9ede51",
-          "name": "Get Engine Oil Life",
-          "request": {
-            "name": "Get Engine Oil Life",
-            "description": {
-              "content": "Retrieves the remaining engine oil life as a percentage. Requires the read_engine_oil permission.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "vehicles",
-                ":id",
-                "engine",
-                "oil"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "id",
-                  "description": "(Required) "
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "9c996963-4173-491b-b4f6-0c9e2a3ba7a9",
-              "name": "Engine oil life",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "vehicles",
-                    ":id",
-                    "engine",
-                    "oil"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "id",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"lifeRemaining\": 0.16316412918283196\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "afb56109-130b-4c0f-ae70-3611c11cab03",
-          "name": "Get Diagnostic Trouble Codes",
-          "request": {
-            "name": "Get Diagnostic Trouble Codes",
-            "description": {
-              "content": "Retrieves active diagnostic trouble codes (DTCs) from the vehicle's OBD-II system. Requires the read_diagnostics permission.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "vehicles",
-                ":id",
-                "diagnostics",
-                "dtcs"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "id",
-                  "description": "(Required) "
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "b3cee76d-f800-4d4d-90a1-7f11f5f5b586",
-              "name": "Diagnostic trouble codes",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "vehicles",
-                    ":id",
-                    "diagnostics",
-                    "dtcs"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "id",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"activeCodes\": [\n    {\n      \"code\": \"string\",\n      \"timestamp\": \"2015-06-04T07:18:08.915Z\"\n    },\n    {\n      \"code\": \"string\",\n      \"timestamp\": \"2003-02-03T01:55:23.870Z\"\n    }\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "cdd616b8-ae0d-458a-8658-1eb3fd287cac",
-          "name": "Get Vehicle Permissions",
-          "request": {
-            "name": "Get Vehicle Permissions",
-            "description": {
-              "content": "Lists all permissions granted for the vehicle.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "vehicles",
-                ":id",
-                "permissions"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "id",
-                  "description": "(Required) "
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "3efe4a43-5c94-475f-bcf4-b399fc901e4e",
-              "name": "Granted permissions",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "vehicles",
-                    ":id",
-                    "permissions"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "id",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"permissions\": [\n    \"string\",\n    \"string\"\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "701001bf-fa7e-46f6-9196-9aa261256495",
-          "name": "Batch Vehicle Data Requests",
-          "request": {
-            "name": "Batch Vehicle Data Requests",
-            "description": {
-              "content": "Sends multiple data requests in a single API call and returns all responses together, reducing round-trips.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "vehicles",
-                ":id",
-                "batch"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "id",
-                  "description": "(Required) "
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"requests\": [\n    {\n      \"path\": \"<string>\"\n    },\n    {\n      \"path\": \"<string>\"\n    }\n  ]\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
-            {
-              "id": "35205416-794c-4491-b65d-a8346fdd68b7",
-              "name": "Batch response",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "vehicles",
-                    ":id",
-                    "batch"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "id",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"requests\": [\n    {\n      \"path\": \"<string>\"\n    },\n    {\n      \"path\": \"<string>\"\n    }\n  ]\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "cfdf883d-d494-4886-b254-8ee2c5d38071",
+          "createdAt": "2026-10-22T02:08:51.000Z",
+          "updatedAt": "2026-10-22T02:08:51.000Z",
+          "uid": "35240-cfdf883d-d494-4886-b254-8ee2c5d38071"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "type": "string",
-      "value": "https://vehicle.api.smartcar.com/v2.0",
-      "key": "baseUrl"
+      "id": "1d04a8c8-7e77-4fda-9865-5addec588218",
+      "createdAt": "2026-10-22T02:08:51.000Z",
+      "updatedAt": "2026-10-22T02:08:51.000Z",
+      "uid": "35240-1d04a8c8-7e77-4fda-9865-5addec588218"
     }
   ],
   "auth": {
@@ -1177,17 +1190,15 @@
     "bearer": [
       {
         "key": "token",
-        "value": "{{bearerToken}}"
+        "value": "{{bearerToken}}",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "2cc65969-14e3-4f00-8b27-de1b9c80b680",
-    "name": "Smartcar Vehicles Charging Vehicle Data API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "The Smartcar Vehicles API provides a standardized REST interface for accessing connected vehicle data and sending commands to vehicles across multiple OEMs through a single integration. Retrieve signals such as battery level, odometer, location, fuel, engine oil life, and lock status, or issue commands like lock/unlock doors, start/stop charging, set charge limits, and set navigation destinations. Authentication uses OAuth 2.0 with user-granted permissions per vehicle.\n\nContact Support:\n Name: Smartcar Support\n Email: support@smartcar.com",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://vehicle.api.smartcar.com/v2.0"
     }
-  }
+  ]
 }

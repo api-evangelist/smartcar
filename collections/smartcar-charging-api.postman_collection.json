@@ -1,461 +1,470 @@
 {
+  "info": {
+    "_postman_id": "2ba50e93-2495-4b83-91e2-3a7e2222c24b",
+    "name": "Smartcar Vehicles Charging API",
+    "description": "The Smartcar Vehicles API provides a standardized REST interface for accessing connected vehicle data and sending commands to vehicles across multiple OEMs through a single integration. Retrieve signals such as battery level, odometer, location, fuel, engine oil life, and lock status, or issue commands like lock/unlock doors, start/stop charging, set charge limits, and set navigation destinations. Authentication uses OAuth 2.0 with user-granted permissions per vehicle.\n\nContact Support:\n Name: Smartcar Support\n Email: support@smartcar.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T02:08:28.000Z",
+    "updatedAt": "2026-10-22T02:08:28.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-2ba50e93-2495-4b83-91e2-3a7e2222c24b"
+  },
   "item": [
     {
-      "id": "bd1a9284-a358-4969-b603-2a74ad5c3588",
-      "name": "Charging",
-      "description": {
-        "content": "EV charging management and status",
-        "type": "text/plain"
-      },
+      "name": "vehicles",
       "item": [
         {
-          "id": "bcfaa0b4-0340-457e-af7d-68e29c3eace5",
-          "name": "Get Charge Status",
-          "request": {
-            "name": "Get Charge Status",
-            "description": {
-              "content": "Retrieves the current charging status of an EV including plug-in state and charge progression. Requires the read_charge permission.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "vehicles",
-                ":id",
-                "charge"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "id",
-                  "description": "(Required) "
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
+          "name": "{id}",
+          "item": [
             {
-              "id": "2bc1de7b-7539-4b71-afde-7e3fe287ea82",
-              "name": "Charging status",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "vehicles",
-                    ":id",
-                    "charge"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "id",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
+              "name": "charge",
+              "item": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "name": "limit",
+                  "item": [
+                    {
+                      "name": "Get Charge Limit",
+                      "id": "66ba1b3a-d24b-4b10-8a36-15976d4bdb00",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/vehicles/:id/charge/limit",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "vehicles",
+                            ":id",
+                            "charge",
+                            "limit"
+                          ],
+                          "variable": [
+                            {
+                              "id": "1b4229c7-ce15-4c25-b5f8-22ec2c52583f",
+                              "key": "id",
+                              "value": "<string>",
+                              "description": "(Required) "
+                            }
+                          ]
+                        },
+                        "description": "Retrieves the current charge limit setting for an EV."
+                      },
+                      "response": [
+                        {
+                          "id": "ba8762c1-25f1-4e2b-96ad-fc0acd144467",
+                          "name": "Charge limit",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/vehicles/:id/charge/limit",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "vehicles",
+                                ":id",
+                                "charge",
+                                "limit"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"limit\": \"<number>\"\n}",
+                          "createdAt": "2026-10-22T02:08:29.000Z",
+                          "updatedAt": "2026-10-22T02:08:29.000Z",
+                          "uid": "35240-ba8762c1-25f1-4e2b-96ad-fc0acd144467"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T02:08:29.000Z",
+                      "updatedAt": "2026-10-22T02:08:29.000Z",
+                      "uid": "35240-66ba1b3a-d24b-4b10-8a36-15976d4bdb00"
+                    },
+                    {
+                      "name": "Set Charge Limit",
+                      "id": "cb563ce2-1de8-4037-827f-d1b84c842ab6",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"limit\": \"<number>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/vehicles/:id/charge/limit",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "vehicles",
+                            ":id",
+                            "charge",
+                            "limit"
+                          ],
+                          "variable": [
+                            {
+                              "id": "47cc9573-e059-480a-a5d7-b8d16108fddf",
+                              "key": "id",
+                              "value": "<string>",
+                              "description": "(Required) "
+                            }
+                          ]
+                        },
+                        "description": "Sets the maximum battery charge level (as a percentage) for an EV. Requires the control_charge permission."
+                      },
+                      "response": [
+                        {
+                          "id": "08ef80e3-e910-4562-a4de-95c3c2fa60b2",
+                          "name": "Command result",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"limit\": \"<number>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/vehicles/:id/charge/limit",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "vehicles",
+                                ":id",
+                                "charge",
+                                "limit"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"status\": \"success\",\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-10-22T02:08:29.000Z",
+                          "updatedAt": "2026-10-22T02:08:29.000Z",
+                          "uid": "35240-08ef80e3-e910-4562-a4de-95c3c2fa60b2"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T02:08:29.000Z",
+                      "updatedAt": "2026-10-22T02:08:29.000Z",
+                      "uid": "35240-cb563ce2-1de8-4037-827f-d1b84c842ab6"
+                    }
+                  ],
+                  "id": "52473237-fab1-4742-9551-10163b2edbd8",
+                  "createdAt": "2026-10-22T02:08:28.000Z",
+                  "updatedAt": "2026-10-22T02:08:28.000Z",
+                  "uid": "35240-52473237-fab1-4742-9551-10163b2edbd8"
+                },
+                {
+                  "name": "Get Charge Status",
+                  "id": "84190981-7512-4d1b-b1e3-3f06befc54d4",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/vehicles/:id/charge",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "vehicles",
+                        ":id",
+                        "charge"
+                      ],
+                      "variable": [
+                        {
+                          "id": "06f55715-8b60-4ab2-9d1c-2396e0110e01",
+                          "key": "id",
+                          "value": "<string>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    },
+                    "description": "Retrieves the current charging status of an EV including plug-in state and charge progression. Requires the read_charge permission."
+                  },
+                  "response": [
+                    {
+                      "id": "9830db2d-7bf4-4541-9fa9-e67bf824ac2d",
+                      "name": "Charging status",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/vehicles/:id/charge",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "vehicles",
+                            ":id",
+                            "charge"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"isPluggedIn\": \"<boolean>\",\n  \"state\": \"CHARGING\"\n}",
+                      "createdAt": "2026-10-22T02:08:29.000Z",
+                      "updatedAt": "2026-10-22T02:08:29.000Z",
+                      "uid": "35240-9830db2d-7bf4-4541-9fa9-e67bf824ac2d"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T02:08:29.000Z",
+                  "updatedAt": "2026-10-22T02:08:29.000Z",
+                  "uid": "35240-84190981-7512-4d1b-b1e3-3f06befc54d4"
+                },
+                {
+                  "name": "Start Or Stop Charging",
+                  "id": "c55cb5b0-cb90-46f3-95ee-60ea664ce007",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"action\": \"STOP\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/vehicles/:id/charge",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "vehicles",
+                        ":id",
+                        "charge"
+                      ],
+                      "variable": [
+                        {
+                          "id": "6b57798e-26a2-45c8-8d9d-9153abb0a6bb",
+                          "key": "id",
+                          "value": "<string>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    },
+                    "description": "Starts or stops charging for an electric vehicle. Requires the control_charge permission."
+                  },
+                  "response": [
+                    {
+                      "id": "dbe60807-3087-4f7b-beab-cdfc4902dd6a",
+                      "name": "Command result",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"action\": \"STOP\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/vehicles/:id/charge",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "vehicles",
+                            ":id",
+                            "charge"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"status\": \"success\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-10-22T02:08:29.000Z",
+                      "updatedAt": "2026-10-22T02:08:29.000Z",
+                      "uid": "35240-dbe60807-3087-4f7b-beab-cdfc4902dd6a"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T02:08:29.000Z",
+                  "updatedAt": "2026-10-22T02:08:29.000Z",
+                  "uid": "35240-c55cb5b0-cb90-46f3-95ee-60ea664ce007"
                 }
               ],
-              "body": "{\n  \"isPluggedIn\": true,\n  \"state\": \"FULLY_CHARGED\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "id": "6b2a4fd9-15c6-4cbe-814b-68ad2928693b",
+              "createdAt": "2026-10-22T02:08:28.000Z",
+              "updatedAt": "2026-10-22T02:08:28.000Z",
+              "uid": "35240-6b2a4fd9-15c6-4cbe-814b-68ad2928693b"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "a0c6c6a4-dd9e-4e13-a038-82dbf3b8532e",
-          "name": "Start Or Stop Charging",
-          "request": {
-            "name": "Start Or Stop Charging",
-            "description": {
-              "content": "Starts or stops charging for an electric vehicle. Requires the control_charge permission.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "vehicles",
-                ":id",
-                "charge"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "id",
-                  "description": "(Required) "
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"action\": \"<string>\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
-            {
-              "id": "a2bfef0e-4660-4fc5-b80e-b3d7f638c21e",
-              "name": "Command result",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "vehicles",
-                    ":id",
-                    "charge"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "id",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"action\": \"<string>\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"status\": \"error\",\n  \"message\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "eebd12b6-fcee-46b2-ac0f-b168cd7e6b55",
-          "name": "Get Charge Limit",
-          "request": {
-            "name": "Get Charge Limit",
-            "description": {
-              "content": "Retrieves the current charge limit setting for an EV.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "vehicles",
-                ":id",
-                "charge",
-                "limit"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "id",
-                  "description": "(Required) "
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "77edac8f-bd33-4be0-ae5e-d914a63ccc2e",
-              "name": "Charge limit",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "vehicles",
-                    ":id",
-                    "charge",
-                    "limit"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "id",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"limit\": 0.6941935926778551\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "541a1987-2f13-4a95-a334-dce54e3ce76d",
-          "name": "Set Charge Limit",
-          "request": {
-            "name": "Set Charge Limit",
-            "description": {
-              "content": "Sets the maximum battery charge level (as a percentage) for an EV. Requires the control_charge permission.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "vehicles",
-                ":id",
-                "charge",
-                "limit"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "id",
-                  "description": "(Required) "
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"limit\": \"<number>\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
-            {
-              "id": "4889ef71-bf07-44c2-a9f0-08f0d4578c9f",
-              "name": "Command result",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "vehicles",
-                    ":id",
-                    "charge",
-                    "limit"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "id",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"limit\": \"<number>\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"status\": \"error\",\n  \"message\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "d5df2e09-cecc-4a94-b137-b89f5db6e962",
+          "createdAt": "2026-10-22T02:08:28.000Z",
+          "updatedAt": "2026-10-22T02:08:28.000Z",
+          "uid": "35240-d5df2e09-cecc-4a94-b137-b89f5db6e962"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "type": "string",
-      "value": "https://vehicle.api.smartcar.com/v2.0",
-      "key": "baseUrl"
+      "id": "32a2606b-1b70-4c8f-a7a7-4d59b45bc180",
+      "createdAt": "2026-10-22T02:08:28.000Z",
+      "updatedAt": "2026-10-22T02:08:28.000Z",
+      "uid": "35240-32a2606b-1b70-4c8f-a7a7-4d59b45bc180"
     }
   ],
   "auth": {
@@ -463,17 +472,15 @@
     "bearer": [
       {
         "key": "token",
-        "value": "{{bearerToken}}"
+        "value": "{{bearerToken}}",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "f7449afa-de68-4f9d-9599-c4480bbf624f",
-    "name": "Smartcar Vehicles Charging API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "The Smartcar Vehicles API provides a standardized REST interface for accessing connected vehicle data and sending commands to vehicles across multiple OEMs through a single integration. Retrieve signals such as battery level, odometer, location, fuel, engine oil life, and lock status, or issue commands like lock/unlock doors, start/stop charging, set charge limits, and set navigation destinations. Authentication uses OAuth 2.0 with user-granted permissions per vehicle.\n\nContact Support:\n Name: Smartcar Support\n Email: support@smartcar.com",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://vehicle.api.smartcar.com/v2.0"
     }
-  }
+  ]
 }

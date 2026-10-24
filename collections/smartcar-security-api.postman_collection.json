@@ -1,240 +1,249 @@
 {
+  "info": {
+    "_postman_id": "643de477-cd57-412d-b1e0-cf53c23d9b5f",
+    "name": "Smartcar Vehicles Security API",
+    "description": "The Smartcar Vehicles API provides a standardized REST interface for accessing connected vehicle data and sending commands to vehicles across multiple OEMs through a single integration. Retrieve signals such as battery level, odometer, location, fuel, engine oil life, and lock status, or issue commands like lock/unlock doors, start/stop charging, set charge limits, and set navigation destinations. Authentication uses OAuth 2.0 with user-granted permissions per vehicle.\n\nContact Support:\n Name: Smartcar Support\n Email: support@smartcar.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T02:08:44.000Z",
+    "updatedAt": "2026-10-22T02:08:44.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-643de477-cd57-412d-b1e0-cf53c23d9b5f"
+  },
   "item": [
     {
-      "id": "2e597782-ea48-4bc6-ab31-8586be77d691",
-      "name": "Security",
-      "description": {
-        "content": "Vehicle security, locking and unlocking",
-        "type": "text/plain"
-      },
+      "name": "vehicles",
       "item": [
         {
-          "id": "11fd058a-b476-4445-b0e7-fde486832840",
-          "name": "Get Lock Status",
-          "request": {
-            "name": "Get Lock Status",
-            "description": {
-              "content": "Retrieves the current lock/unlock status of the vehicle's doors, windows, storage, sunroof, and charge port. Requires the read_security permission.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "vehicles",
-                ":id",
-                "security"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "id",
-                  "description": "(Required) "
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
+          "name": "{id}",
+          "item": [
             {
-              "id": "6dcfc7d3-6c69-4e63-a8d2-0ed3f878d3f6",
-              "name": "Security status",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "vehicles",
-                    ":id",
-                    "security"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "id",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
+              "name": "security",
+              "item": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "name": "Get Lock Status",
+                  "id": "9263bdee-0bcb-470f-a850-002497d8e290",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/vehicles/:id/security",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "vehicles",
+                        ":id",
+                        "security"
+                      ],
+                      "variable": [
+                        {
+                          "id": "e1419c51-832d-4677-bf14-3b00578989a0",
+                          "key": "id",
+                          "value": "<string>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    },
+                    "description": "Retrieves the current lock/unlock status of the vehicle's doors, windows, storage, sunroof, and charge port. Requires the read_security permission."
+                  },
+                  "response": [
+                    {
+                      "id": "8fbca5aa-4e2f-4d68-98ef-f0bb406ffacb",
+                      "name": "Security status",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/vehicles/:id/security",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "vehicles",
+                            ":id",
+                            "security"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"isLocked\": \"<boolean>\",\n  \"doors\": [\n    {\n      \"type\": \"<string>\",\n      \"status\": \"UNKNOWN\"\n    },\n    {\n      \"type\": \"<string>\",\n      \"status\": \"UNLOCKED\"\n    }\n  ]\n}",
+                      "createdAt": "2026-10-22T02:08:44.000Z",
+                      "updatedAt": "2026-10-22T02:08:44.000Z",
+                      "uid": "35240-8fbca5aa-4e2f-4d68-98ef-f0bb406ffacb"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T02:08:44.000Z",
+                  "updatedAt": "2026-10-22T02:08:44.000Z",
+                  "uid": "35240-9263bdee-0bcb-470f-a850-002497d8e290"
+                },
+                {
+                  "name": "Lock Or Unlock Doors",
+                  "id": "a95526d2-91c8-4a61-86ce-0ee148ee23b9",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"action\": \"UNLOCK\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/vehicles/:id/security",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "vehicles",
+                        ":id",
+                        "security"
+                      ],
+                      "variable": [
+                        {
+                          "id": "06571725-9815-4bcb-9deb-3353021cb288",
+                          "key": "id",
+                          "value": "<string>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    },
+                    "description": "Locks or unlocks the vehicle's doors remotely. Requires the control_security permission."
+                  },
+                  "response": [
+                    {
+                      "id": "dad9e8ef-b9c1-4e6d-b6af-5806e89abfe9",
+                      "name": "Command result",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"action\": \"UNLOCK\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/vehicles/:id/security",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "vehicles",
+                            ":id",
+                            "security"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"status\": \"pending\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-10-22T02:08:44.000Z",
+                      "updatedAt": "2026-10-22T02:08:44.000Z",
+                      "uid": "35240-dad9e8ef-b9c1-4e6d-b6af-5806e89abfe9"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T02:08:44.000Z",
+                  "updatedAt": "2026-10-22T02:08:44.000Z",
+                  "uid": "35240-a95526d2-91c8-4a61-86ce-0ee148ee23b9"
                 }
               ],
-              "body": "{\n  \"isLocked\": true,\n  \"doors\": [\n    {\n      \"type\": \"string\",\n      \"status\": \"UNLOCKED\"\n    },\n    {\n      \"type\": \"string\",\n      \"status\": \"UNLOCKED\"\n    }\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "id": "447eab26-9c07-4a90-971e-7ae7e526e74e",
+              "createdAt": "2026-10-22T02:08:44.000Z",
+              "updatedAt": "2026-10-22T02:08:44.000Z",
+              "uid": "35240-447eab26-9c07-4a90-971e-7ae7e526e74e"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "10fbaffa-cd27-4541-a57c-4cb2163b3e47",
-          "name": "Lock Or Unlock Doors",
-          "request": {
-            "name": "Lock Or Unlock Doors",
-            "description": {
-              "content": "Locks or unlocks the vehicle's doors remotely. Requires the control_security permission.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "vehicles",
-                ":id",
-                "security"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "id",
-                  "description": "(Required) "
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"action\": \"<string>\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
-            {
-              "id": "1ffedaef-9f84-4659-abf4-147f37c1c398",
-              "name": "Command result",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "vehicles",
-                    ":id",
-                    "security"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "id",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"action\": \"<string>\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"status\": \"pending\",\n  \"message\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "a2aa6a56-757b-4ab1-a623-0727969f34f4",
+          "createdAt": "2026-10-22T02:08:44.000Z",
+          "updatedAt": "2026-10-22T02:08:44.000Z",
+          "uid": "35240-a2aa6a56-757b-4ab1-a623-0727969f34f4"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "type": "string",
-      "value": "https://vehicle.api.smartcar.com/v2.0",
-      "key": "baseUrl"
+      "id": "0883b7d4-bec5-459e-ab97-3c732b9fe3c6",
+      "createdAt": "2026-10-22T02:08:44.000Z",
+      "updatedAt": "2026-10-22T02:08:44.000Z",
+      "uid": "35240-0883b7d4-bec5-459e-ab97-3c732b9fe3c6"
     }
   ],
   "auth": {
@@ -242,17 +251,15 @@
     "bearer": [
       {
         "key": "token",
-        "value": "{{bearerToken}}"
+        "value": "{{bearerToken}}",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "7cfb6f6e-ca83-4198-b95a-d4bbbcc5cedc",
-    "name": "Smartcar Vehicles Charging Security API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "The Smartcar Vehicles API provides a standardized REST interface for accessing connected vehicle data and sending commands to vehicles across multiple OEMs through a single integration. Retrieve signals such as battery level, odometer, location, fuel, engine oil life, and lock status, or issue commands like lock/unlock doors, start/stop charging, set charge limits, and set navigation destinations. Authentication uses OAuth 2.0 with user-granted permissions per vehicle.\n\nContact Support:\n Name: Smartcar Support\n Email: support@smartcar.com",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://vehicle.api.smartcar.com/v2.0"
     }
-  }
+  ]
 }

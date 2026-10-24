@@ -1,508 +1,479 @@
 {
+  "info": {
+    "_postman_id": "3d7de786-187f-4bd8-bd63-54b48074892f",
+    "name": "Smartcar Vehicles Connections API",
+    "description": "The Smartcar Vehicles API provides a standardized REST interface for accessing connected vehicle data and sending commands to vehicles across multiple OEMs through a single integration. Retrieve signals such as battery level, odometer, location, fuel, engine oil life, and lock status, or issue commands like lock/unlock doors, start/stop charging, set charge limits, and set navigation destinations. Authentication uses OAuth 2.0 with user-granted permissions per vehicle.\n\nContact Support:\n Name: Smartcar Support\n Email: support@smartcar.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T02:08:31.000Z",
+    "updatedAt": "2026-10-22T02:08:31.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-3d7de786-187f-4bd8-bd63-54b48074892f"
+  },
   "item": [
     {
-      "id": "e8b5ee40-2f3a-4d9e-9ab0-73caa828df50",
-      "name": "Connections",
-      "description": {
-        "content": "Manage vehicle connections and user authorizations",
-        "type": "text/plain"
-      },
+      "name": "connections",
       "item": [
         {
-          "id": "f70fb5ca-7758-4113-a9c5-af3ab7074a25",
+          "name": "{id}",
+          "item": [
+            {
+              "name": "Get Connection",
+              "id": "72c9df31-c855-4686-a903-38c887c44845",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/connections/:id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "connections",
+                    ":id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "a8cc7df5-5343-479a-940f-273a531f2caf",
+                      "key": "id",
+                      "value": "<string>",
+                      "description": "(Required) Connection ID"
+                    }
+                  ]
+                },
+                "description": "Retrieves a specific vehicle connection by connection ID."
+              },
+              "response": [
+                {
+                  "id": "fcfb303a-c9ae-406c-bb4a-109974142c1b",
+                  "name": "Connection details",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/connections/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "connections",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"vehicleId\": \"<string>\",\n  \"userId\": \"<string>\",\n  \"status\": \"ACTIVE\",\n  \"created\": \"<dateTime>\"\n}",
+                  "createdAt": "2026-10-22T02:08:32.000Z",
+                  "updatedAt": "2026-10-22T02:08:32.000Z",
+                  "uid": "35240-fcfb303a-c9ae-406c-bb4a-109974142c1b"
+                },
+                {
+                  "id": "5f083b48-a27c-41de-9f02-3f13825e4ebf",
+                  "name": "Connection not found",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/connections/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "connections",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T02:08:32.000Z",
+                  "updatedAt": "2026-10-22T02:08:32.000Z",
+                  "uid": "35240-5f083b48-a27c-41de-9f02-3f13825e4ebf"
+                }
+              ],
+              "createdAt": "2026-10-22T02:08:32.000Z",
+              "updatedAt": "2026-10-22T02:08:32.000Z",
+              "uid": "35240-72c9df31-c855-4686-a903-38c887c44845"
+            },
+            {
+              "name": "Remove Connection",
+              "id": "0eb30b7c-8d61-4860-a9c1-19b41270aa3b",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/connections/:id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "connections",
+                    ":id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "a509f59e-747a-4504-95ba-600b281a65f1",
+                      "key": "id",
+                      "value": "<string>",
+                      "description": "(Required) Connection ID"
+                    }
+                  ]
+                },
+                "description": "Removes a vehicle connection, revoking access to that vehicle."
+              },
+              "response": [
+                {
+                  "id": "0805bd8a-82a8-40c4-9511-d316e187fc80",
+                  "name": "Connection removed",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/connections/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "connections",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T02:08:32.000Z",
+                  "updatedAt": "2026-10-22T02:08:32.000Z",
+                  "uid": "35240-0805bd8a-82a8-40c4-9511-d316e187fc80"
+                },
+                {
+                  "id": "5c05fed7-0f69-487a-8cad-459db744ac17",
+                  "name": "Not found",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/connections/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "connections",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T02:08:32.000Z",
+                  "updatedAt": "2026-10-22T02:08:32.000Z",
+                  "uid": "35240-5c05fed7-0f69-487a-8cad-459db744ac17"
+                }
+              ],
+              "createdAt": "2026-10-22T02:08:32.000Z",
+              "updatedAt": "2026-10-22T02:08:32.000Z",
+              "uid": "35240-0eb30b7c-8d61-4860-a9c1-19b41270aa3b"
+            }
+          ],
+          "id": "ac0abba7-5231-4762-9464-df0966649472",
+          "createdAt": "2026-10-22T02:08:32.000Z",
+          "updatedAt": "2026-10-22T02:08:32.000Z",
+          "uid": "35240-ac0abba7-5231-4762-9464-df0966649472"
+        },
+        {
           "name": "List Connections",
+          "id": "5d880148-153d-4814-85cb-7541ff0e7d79",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
           "request": {
-            "name": "List Connections",
-            "description": {
-              "content": "Returns all vehicle connections associated with the authorized user.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "connections"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
+            "method": "GET",
             "header": [
               {
                 "key": "Accept",
                 "value": "application/json"
               }
             ],
-            "method": "GET",
-            "auth": null
+            "url": {
+              "raw": "{{baseUrl}}/connections",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "connections"
+              ]
+            },
+            "description": "Returns all vehicle connections associated with the authorized user."
           },
           "response": [
             {
-              "id": "9675fac4-7d12-44e7-a01e-eb7ac8fcc476",
+              "id": "b1337a68-2073-43f3-8e7a-e425fc88e850",
               "name": "List of vehicle connections",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "connections"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
+                "method": "GET",
                 "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
                   {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/connections",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "connections"
+                  ]
+                }
               },
               "status": "OK",
               "code": 200,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"connections\": [\n    {\n      \"id\": \"string\",\n      \"vehicleId\": \"string\",\n      \"userId\": \"string\",\n      \"status\": \"REVOKED\",\n      \"created\": \"1961-05-11T02:57:24.597Z\"\n    },\n    {\n      \"id\": \"string\",\n      \"vehicleId\": \"string\",\n      \"userId\": \"string\",\n      \"status\": \"REVOKED\",\n      \"created\": \"1977-09-07T15:34:55.113Z\"\n    }\n  ]\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"connections\": [\n    {\n      \"id\": \"<string>\",\n      \"vehicleId\": \"<string>\",\n      \"userId\": \"<string>\",\n      \"status\": \"REVOKED\",\n      \"created\": \"<dateTime>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"vehicleId\": \"<string>\",\n      \"userId\": \"<string>\",\n      \"status\": \"ACTIVE\",\n      \"created\": \"<dateTime>\"\n    }\n  ]\n}",
+              "createdAt": "2026-10-22T02:08:32.000Z",
+              "updatedAt": "2026-10-22T02:08:32.000Z",
+              "uid": "35240-b1337a68-2073-43f3-8e7a-e425fc88e850"
             },
             {
-              "id": "65aab48d-ddcb-43a7-8b79-15a0050e3946",
+              "id": "9404a156-0f99-46fe-a8f2-1e42c909bb02",
               "name": "Unauthorized",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "connections"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
+                "method": "GET",
                 "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
                   {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/connections",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "connections"
+                  ]
+                }
               },
               "status": "Unauthorized",
               "code": 401,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"code\": \"string\",\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"status\": 8173,\n  \"resolution\": \"REAUTHENTICATE\",\n  \"suggestedUserMessage\": \"string\"\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"type\": \"<string>\",\n  \"code\": \"<string>\",\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"resolution\": \"RETRY_LATER\",\n  \"suggestedUserMessage\": \"<string>\"\n}",
+              "createdAt": "2026-10-22T02:08:32.000Z",
+              "updatedAt": "2026-10-22T02:08:32.000Z",
+              "uid": "35240-9404a156-0f99-46fe-a8f2-1e42c909bb02"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
+          "createdAt": "2026-10-22T02:08:32.000Z",
+          "updatedAt": "2026-10-22T02:08:32.000Z",
+          "uid": "35240-5d880148-153d-4814-85cb-7541ff0e7d79"
+        }
+      ],
+      "id": "bf722d05-30ba-4970-baaa-7a30312a6800",
+      "createdAt": "2026-10-22T02:08:32.000Z",
+      "updatedAt": "2026-10-22T02:08:32.000Z",
+      "uid": "35240-bf722d05-30ba-4970-baaa-7a30312a6800"
+    },
+    {
+      "name": "users",
+      "item": [
         {
-          "id": "dc3b75e2-e38a-430a-b7ba-328555926fcf",
-          "name": "Get Connection",
-          "request": {
-            "name": "Get Connection",
-            "description": {
-              "content": "Retrieves a specific vehicle connection by connection ID.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "connections",
-                ":id"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "id",
-                  "description": "(Required) Connection ID"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
+          "name": "{id}",
+          "item": [
             {
-              "id": "b0ac6606-7253-44c6-848c-53a8ba5b4759",
-              "name": "Connection details",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "connections",
-                    ":id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "id",
-                      "description": "(Required) Connection ID"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
+              "name": "Remove User",
+              "id": "32ae0ea4-950c-4720-b26d-47ab01bd8867",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
               },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"id\": \"string\",\n  \"vehicleId\": \"string\",\n  \"userId\": \"string\",\n  \"status\": \"ACTIVE\",\n  \"created\": \"2013-04-21T21:22:02.661Z\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "1a8a05a1-4af8-4585-a484-364f97e8d4ce",
-              "name": "Connection not found",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "connections",
-                    ":id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "id",
-                      "description": "(Required) Connection ID"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "8a33f033-68e2-4a28-a6e2-0897d30e1a51",
-          "name": "Remove Connection",
-          "request": {
-            "name": "Remove Connection",
-            "description": {
-              "content": "Removes a vehicle connection, revoking access to that vehicle.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "connections",
-                ":id"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "id",
-                  "description": "(Required) Connection ID"
-                }
-              ]
-            },
-            "method": "DELETE",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "f2e93942-4e29-42ca-849e-59d16794d1ef",
-              "name": "Connection removed",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "connections",
-                    ":id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "id",
-                      "description": "(Required) Connection ID"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
+              "request": {
                 "method": "DELETE",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "24c4826e-3cac-4ef9-b267-1b03b78b5ab1",
-              "name": "Not found",
-              "originalRequest": {
+                "header": [],
                 "url": {
-                  "path": [
-                    "connections",
-                    ":id"
-                  ],
+                  "raw": "{{baseUrl}}/users/:id",
                   "host": [
                     "{{baseUrl}}"
                   ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "id",
-                      "description": "(Required) Connection ID"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "b8b90164-3cd6-45bc-88ca-985b4d504d93",
-          "name": "Remove User",
-          "request": {
-            "name": "Remove User",
-            "description": {
-              "content": "Removes all vehicle connections for a specific user.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "users",
-                ":id"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "id",
-                  "description": "(Required) User ID"
-                }
-              ]
-            },
-            "method": "DELETE",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "3d9c52f8-17b6-402c-817b-a51622bbbe00",
-              "name": "User removed",
-              "originalRequest": {
-                "url": {
                   "path": [
                     "users",
                     ":id"
                   ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
                   "variable": [
                     {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
+                      "id": "9d78f287-f849-4d28-8f0d-44db20204f8f",
                       "key": "id",
+                      "value": "<string>",
                       "description": "(Required) User ID"
                     }
                   ]
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
+                "description": "Removes all vehicle connections for a specific user."
               },
-              "status": "OK",
-              "code": 200,
-              "header": [
+              "response": [
                 {
-                  "key": "Content-Type",
-                  "value": "text/plain"
+                  "id": "6cc49810-c9de-408f-b686-8066d0eaf75d",
+                  "name": "User removed",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/users/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "users",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T02:08:32.000Z",
+                  "updatedAt": "2026-10-22T02:08:32.000Z",
+                  "uid": "35240-6cc49810-c9de-408f-b686-8066d0eaf75d"
                 }
               ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
+              "createdAt": "2026-10-22T02:08:32.000Z",
+              "updatedAt": "2026-10-22T02:08:32.000Z",
+              "uid": "35240-32ae0ea4-950c-4720-b26d-47ab01bd8867"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "2e13b257-6ef7-46d1-8849-dd06da55cfab",
+          "createdAt": "2026-10-22T02:08:32.000Z",
+          "updatedAt": "2026-10-22T02:08:32.000Z",
+          "uid": "35240-2e13b257-6ef7-46d1-8849-dd06da55cfab"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "type": "string",
-      "value": "https://vehicle.api.smartcar.com/v2.0",
-      "key": "baseUrl"
+      "id": "4a2ebd67-63b9-4d45-b587-14c6871a2616",
+      "createdAt": "2026-10-22T02:08:32.000Z",
+      "updatedAt": "2026-10-22T02:08:32.000Z",
+      "uid": "35240-4a2ebd67-63b9-4d45-b587-14c6871a2616"
     }
   ],
   "auth": {
@@ -510,17 +481,15 @@
     "bearer": [
       {
         "key": "token",
-        "value": "{{bearerToken}}"
+        "value": "{{bearerToken}}",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "89c2ab4d-bab8-43fa-babb-01485c222e7e",
-    "name": "Smartcar Vehicles Charging Connections API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "The Smartcar Vehicles API provides a standardized REST interface for accessing connected vehicle data and sending commands to vehicles across multiple OEMs through a single integration. Retrieve signals such as battery level, odometer, location, fuel, engine oil life, and lock status, or issue commands like lock/unlock doors, start/stop charging, set charge limits, and set navigation destinations. Authentication uses OAuth 2.0 with user-granted permissions per vehicle.\n\nContact Support:\n Name: Smartcar Support\n Email: support@smartcar.com",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://vehicle.api.smartcar.com/v2.0"
     }
-  }
+  ]
 }
